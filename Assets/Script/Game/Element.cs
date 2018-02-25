@@ -5,6 +5,15 @@ using UnityEngine;
 namespace Game {
 	// Kelas dasar untuk semua elemen
 	public class Element : MonoBehaviour {
-		public Application app {get {return GameObject.FindObjectOfType<Application>(); }}
+		private Application application;
+
+		public Application app {
+			get {
+				if (!application) {
+					application = GameObject.FindObjectOfType<Application>();
+				}
+				return application;
+			}
+		}
 	}
 }

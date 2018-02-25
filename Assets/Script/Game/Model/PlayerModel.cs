@@ -5,8 +5,9 @@ using UnityEngine;
 namespace Game {
 	public class PlayerModel : Element {
 
-		public GameObject playerGameObject;
-		public float playerJumpSpeed = 900.0f;
+		public GameObject playerGameObject; // player yang ingin dikontrol
+		public float playerJumpSpeed; // kekuatan lompatan pemain
+		public float playerWidthPosition; // posisi pemain terhadap lebar layar. 0 untuk sisi kiri layar, 1 untuk sisi kanan layar
 
 	}
 }
