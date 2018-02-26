@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8aaea241d03e247a7b17307287ead8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseGroundSpeed: 0.6
-  poolDisplayWidthRatio: 1.5
+  baseGroundSpeed: 2.75
+  poolDisplayWidthRatio: 1.35
   groundDisplayHeightRatio: 0.33
   prefabDatar: {fileID: 1076304340157024, guid: 0d7fa8a8b9009e5478ca3bdeed373a9a,
     type: 2}

@@ -6,7 +6,7 @@ namespace Game {
 	public class GroundModel : Element {
 
 		// variabel bebas
-		public float baseGroundSpeed; // kecepatan awal gerakan tanah, default = 0.06
+		public float baseGroundSpeed; // kecepatan awal gerakan tanah, default = 2.7
 		public float poolDisplayWidthRatio; // rasio antara jarak x_right-x_left dengan lebar layar
 		public float groundDisplayHeightRatio; // rasio antara jarak pijakan ke bawah layar dengan tinggi layar
 		public GameObject prefabDatar; // prefab untuk tanah pijakan yang datar
