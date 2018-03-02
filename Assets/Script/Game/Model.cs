@@ -9,6 +9,7 @@ namespace Game {
 		public GroundModel groundModel;
 		public InputModel inputModel;
 		public ScreenModel screenModel;
+		public EnemyModel enemyModel;
 
 	}
 }

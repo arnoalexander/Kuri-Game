@@ -21,6 +21,9 @@ namespace Game {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				app.controller.playerController.Jump ();
 			}
+			if (Input.GetKeyDown (KeyCode.D)) {
+				app.controller.enemyController.Jump ();
+			}
 		}
 
 		void DetectSwipeInput() {

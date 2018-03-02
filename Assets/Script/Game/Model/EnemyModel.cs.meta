@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6190d5fd7dfd67f4e8ca14d721e6b0d4
+timeCreated: 1519923737
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - enemyGameObject: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
