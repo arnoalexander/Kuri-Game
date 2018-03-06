@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Ground.Inactive
+  - Obstacle.Small
+  - Obstacle.Inactive
   layers:
   - Default
   - TransparentFX

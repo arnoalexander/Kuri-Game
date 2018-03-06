@@ -185,7 +185,6 @@ namespace Game {
 		private void ActivateFromPool(List<GameObject> pool, ref int indexPertama, ref int indexSelanjutnya) {
 			if (indexPertama != indexSelanjutnya) {
 				ActivateGround (pool [indexSelanjutnya]);
-				Debug.Log ("[GROUND] Activated, Index: " + indexSelanjutnya.ToString ());
 				if (indexPertama == GroundModel.INDEX_INACTIVE) {
 					indexPertama = indexSelanjutnya;
 				}

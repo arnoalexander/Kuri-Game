@@ -11,6 +11,7 @@ namespace Game {
 		public ScreenModel screenModel;
 		public EnemyModel enemyModel;
 		public WeaponModel weaponModel;
+		public ObstacleModel obstacleModel;
 
 	}
 }

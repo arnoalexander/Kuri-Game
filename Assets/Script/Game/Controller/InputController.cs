@@ -7,17 +7,19 @@ using UnityEngine;
 namespace Game {
 	public class InputController : Element {
 
-		private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown, prevSwipeLeft, prevSwipeRight, prevSwipeUp, prevSwipeDown, isDragging;
-		private Vector2 startTouch, swipeDelta;
-
 		void Start() {
-			isDragging = swipeUp = swipeDown = swipeLeft = swipeRight = false;
+			app.model.inputModel.isDragging = false;
+			app.model.inputModel.tap = false;
+			app.model.inputModel.swipeUp = false;
+			app.model.inputModel.swipeDown = false;
+			app.model.inputModel.swipeLeft = false;
+			app.model.inputModel.swipeRight = false;
 		}
 
 		void Update() {
-			DetectKeyboardInput ();
+			DetectKeyboardInput (); // for debug purpose
+			DetectMouseInput (); // for debug purpose
 			DetectSwipeInput ();
-			DetectMouseInput ();
 		}
 
 		void DetectMouseInput(){
@@ -25,6 +27,7 @@ namespace Game {
 				app.controller.weaponController.CreateBall ();
 			}
 		}
+
 		void DetectKeyboardInput() {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				app.controller.playerController.Jump ();
@@ -39,60 +42,72 @@ namespace Game {
 
 		void DetectSwipeInput() {
 			// saving last state
-			prevSwipeLeft = swipeLeft;
-			prevSwipeRight = swipeRight;
-			prevSwipeUp = swipeUp;
-			prevSwipeDown = swipeDown;
+			app.model.inputModel.tapPrev = app.model.inputModel.tap;
+			app.model.inputModel.swipeUpPrev = app.model.inputModel.swipeUp;
+			app.model.inputModel.swipeDownPrev = app.model.inputModel.swipeDown;
+			app.model.inputModel.swipeLeftPrev = app.model.inputModel.swipeLeft;
+			app.model.inputModel.swipeRightPrev = app.model.inputModel.swipeRight;
 
 			// detect
-			tap = swipeUp = swipeDown = swipeLeft = swipeRight = false;
+			app.model.inputModel.tap = false;
+			app.model.inputModel.swipeUp = false;
+			app.model.inputModel.swipeDown = false;
+			app.model.inputModel.swipeLeft = false;
+			app.model.inputModel.swipeRight = false;
 			if (Input.touches.Length > 0) {
 				if (Input.touches [0].phase == TouchPhase.Began) {
-					tap = true;
-					isDragging = true;
-					startTouch = Input.touches [0].position;
+					app.model.inputModel.tap = true;
+					app.model.inputModel.isDragging = true;
+					app.model.inputModel.startTouch = Input.touches [0].position;
 				} else if (Input.touches [0].phase == TouchPhase.Canceled || Input.touches [0].phase == TouchPhase.Ended) {
-					isDragging = false;
+					app.model.inputModel.isDragging = false;
 					ResetSwipeInput ();
 				}
 			}
 
 			// find length
-			swipeDelta = Vector2.zero;
-			if (isDragging) {
+			app.model.inputModel.swipeDelta = Vector2.zero;
+			if (app.model.inputModel.isDragging) {
 				if (Input.touches.Length > 0) {
-					swipeDelta = Input.touches [0].position - startTouch;
+					app.model.inputModel.swipeDelta = Input.touches [0].position - app.model.inputModel.startTouch;
 				}
 			}
 
 			// check threshold & direction
-			if (swipeDelta.magnitude > app.model.inputModel.swipeDeltaThreshold) {
-				if (Mathf.Abs (swipeDelta.x) > Mathf.Abs (swipeDelta.y)) {
-					if (swipeDelta.x < 0) {
-						swipeLeft = true;
+			if (app.model.inputModel.swipeDelta.magnitude > app.model.inputModel.swipeDeltaThreshold) {
+				if (Mathf.Abs (app.model.inputModel.swipeDelta.x) > Mathf.Abs (app.model.inputModel.swipeDelta.y)) {
+					if (app.model.inputModel.swipeDelta.x < 0) {
+						app.model.inputModel.swipeLeft = true;
 					} else {
-						swipeRight = true;
+						app.model.inputModel.swipeRight = true;
 					}
 				} else {
-					if (swipeDelta.y < 0) {
-						swipeDown = true;
+					if (app.model.inputModel.swipeDelta.y < 0) {
+						app.model.inputModel.swipeDown = true;
 					} else {
-						swipeUp = true;
+						app.model.inputModel.swipeUp = true;
 					}
 				}
 			}
 
 			// processing
-			if (swipeUp) {
-				if (!prevSwipeUp) {
+			if (app.model.inputModel.swipeUp) { // swipe up
+				if (!app.model.inputModel.swipeUpPrev) {
 					app.controller.playerController.Jump ();
 				}
+			} 
+			else if (!app.model.inputModel.tap) { // tap out
+				if (app.model.inputModel.tapPrev && !app.model.inputModel.swipeUpPrev && !app.model.inputModel.swipeDownPrev 
+					&& !app.model.inputModel.swipeLeftPrev && !app.model.inputModel.swipeRightPrev) {
+					app.controller.weaponController.CreateBall ();
+				}
 			}
+
 		}
 
 		void ResetSwipeInput() {
-			startTouch = swipeDelta = Vector2.zero;
-			isDragging = false;
+			app.model.inputModel.startTouch = app.model.inputModel.swipeDelta = Vector2.zero;
+			app.model.inputModel.isDragging = false;
 		}
 
 	}

@@ -11,6 +11,7 @@ namespace Game {
 		public ScreenController screenController;
 		public EnemyController enemyController;
 		public WeaponController weaponController;
+		public ObstacleController obstacleController;
 
 	}
 }
