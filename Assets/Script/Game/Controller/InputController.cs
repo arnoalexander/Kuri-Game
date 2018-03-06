@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 using UnityEngine;
 
 namespace Game {
@@ -23,6 +25,9 @@ namespace Game {
 			}
 			if (Input.GetKeyDown (KeyCode.D)) {
 				app.controller.enemyController.Jump ();
+			}
+			if (Input.GetKeyDown (KeyCode.R)) {
+				SceneManager.LoadScene("Game");
 			}
 		}
 

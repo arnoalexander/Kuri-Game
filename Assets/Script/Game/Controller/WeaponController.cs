@@ -8,9 +8,6 @@ namespace Game
 	{
 		public WeaponController ()
 		{
-			void drop(){
-				
-			}
 		}
 	}
 }
