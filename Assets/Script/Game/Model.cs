@@ -10,6 +10,7 @@ namespace Game {
 		public InputModel inputModel;
 		public ScreenModel screenModel;
 		public EnemyModel enemyModel;
+		public WeaponModel weaponModel;
 
 	}
 }

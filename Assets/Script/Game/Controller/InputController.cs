@@ -17,8 +17,14 @@ namespace Game {
 		void Update() {
 			DetectKeyboardInput ();
 			DetectSwipeInput ();
+			DetectMouseInput ();
 		}
 
+		void DetectMouseInput(){
+			if (Input.GetMouseButtonDown (0)) {
+				app.controller.weaponController.CreateBall ();
+			}
+		}
 		void DetectKeyboardInput() {
 			if (Input.GetKeyDown (KeyCode.Space)) {
 				app.controller.playerController.Jump ();

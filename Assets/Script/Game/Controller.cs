@@ -10,6 +10,7 @@ namespace Game {
 		public PlayerController playerController;
 		public ScreenController screenController;
 		public EnemyController enemyController;
+		public WeaponController weaponController;
 
 	}
 }
