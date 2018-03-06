@@ -9,5 +9,6 @@ namespace Game {
 		public float playerJumpSpeed; // kekuatan lompatan pemain
 		public float playerWidthPosition; // posisi pemain terhadap lebar layar. 0 untuk sisi kiri layar, 1 untuk sisi kanan layar
 
+
 	}
 }

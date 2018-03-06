@@ -14,14 +14,23 @@ namespace Game
 
 			// menempatkan pemain sesuai resolusi layar
 			app.model.enemyModel.enemyGameObject.transform.position = new Vector3(
-				2.5f * (app.model.enemyModel.enemyWidthPosition - 0.5f) * ((float)Camera.main.pixelWidth / (float)Camera.main.pixelHeight) * Camera.main.orthographicSize,
+				4f * (app.model.enemyModel.enemyWidthPosition - 0.5f) * ((float)Camera.main.pixelWidth / (float)Camera.main.pixelHeight) * Camera.main.orthographicSize,
 				app.model.enemyModel.enemyGameObject.transform.position.y,
 				app.model.enemyModel.enemyGameObject.transform.position.z
 			);
 		}
+
 		public void Jump() {
 			enemyRigidBody.AddForce(new Vector2(0.0f, app.model.enemyModel.enemyJumpSpeed));
 		}
+
+		void Update(){
+			float translation_x = app.model.enemyModel.baseEnemySpeed * Time.deltaTime;
+			app.model.enemyModel.enemyGameObject.GetComponent<Rigidbody2D>().transform.Translate (
+				translation_x, 0.0f, 0.0f
+			);
+		}
+
 	}
 
 }
