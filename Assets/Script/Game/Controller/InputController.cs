@@ -96,13 +96,6 @@ namespace Game {
 					app.controller.playerController.Jump ();
 				}
 			} 
-			else if (!app.model.inputModel.tap) { // tap out
-				if (app.model.inputModel.tapPrev && !app.model.inputModel.swipeUpPrev && !app.model.inputModel.swipeDownPrev 
-					&& !app.model.inputModel.swipeLeftPrev && !app.model.inputModel.swipeRightPrev) {
-					app.controller.weaponController.CreateBall ();
-				}
-			}
-
 		}
 
 		void ResetSwipeInput() {
