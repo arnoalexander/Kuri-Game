@@ -977,11 +977,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.83
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.41
+      value: 0.52
       objectReference: {fileID: 0}
     - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1006,20 +1006,6 @@ Prefab:
     - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 95549349082787776, guid: 3aa12275487e20e408771274907b772e,
-        type: 2}
-      propertyPath: m_ApplyRootMotion
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 60742920285989490, guid: 3aa12275487e20e408771274907b772e,
-        type: 2}
-      propertyPath: m_IsTrigger
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3aa12275487e20e408771274907b772e, type: 2}
@@ -1377,6 +1363,7 @@ MonoBehaviour:
   enemyJumpSpeed: 900
   enemyWidthPosition: 0.25
   baseEnemySpeed: 0.2
+  obstacleTranslation: 0.4
 --- !u!4 &1668921809
 Transform:
   m_ObjectHideFlags: 0

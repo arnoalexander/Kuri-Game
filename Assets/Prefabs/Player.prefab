@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 95549349082787776}
   - component: {fileID: 50613069472652008}
   - component: {fileID: 60742920285989490}
+  - component: {fileID: 61429875633625262}
+  - component: {fileID: 114675205762592434}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -37,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1771887251290978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.506, y: -0.586, z: 0}
+  m_LocalPosition: {x: -6, y: 0.52, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -95,6 +97,31 @@ PolygonCollider2D:
       - {x: 0.5326948, y: -0.87383175}
       - {x: 0.57966614, y: -0.48987946}
       - {x: 0.45162553, y: 0.2563158}
+--- !u!61 &61429875633625262
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771887251290978}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.000000059604645, y: -0.50683784}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.28, y: 2.56}
+    newSize: {x: 1.28, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.2083791, y: 1.5463243}
+  m_EdgeRadius: 0
 --- !u!95 &95549349082787776
 Animator:
   serializedVersion: 3
@@ -112,6 +139,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114675205762592434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1771887251290978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b6de7b4c5a4bb746b0899f192a83096, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212974683062503428
 SpriteRenderer:
   m_ObjectHideFlags: 1

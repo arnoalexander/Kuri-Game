@@ -9,6 +9,7 @@ namespace Game {
 		public float enemyJumpSpeed; // kekuatan lompatan pemain
 		public float enemyWidthPosition; // posisi pemain terhadap lebar layar. 0 untuk sisi kiri layar, 1 untuk sisi kanan layar
 		public float baseEnemySpeed;
+		public float obstacleTranslation;
 
 
 	}
