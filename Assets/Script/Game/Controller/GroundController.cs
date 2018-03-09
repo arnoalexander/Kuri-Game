@@ -6,36 +6,46 @@ namespace Game {
 	public class GroundController : Element {
 
 		void Start() {
-			// inisialisasi pool tanah
-			app.model.groundModel.poolPrefabBawah = new List<GameObject>();
-			app.model.groundModel.poolPrefabDatar = new List<GameObject>();
-			DeactivateGround (app.model.groundModel.prefabBawah);
-			DeactivateGround (app.model.groundModel.prefabDatar);
-			app.model.groundModel.indexPertamaPrefabBawah = GroundModel.INDEX_INACTIVE;
-			app.model.groundModel.indexPertamaPrefabDatar = GroundModel.INDEX_INACTIVE;
-			app.model.groundModel.indexSelanjutnyaPrefabBawah = 0;
-			app.model.groundModel.indexSelanjutnyaPrefabDatar = 0;
-			for (int i = 0; i < app.model.groundModel.banyakPoolPrefabBawah; i++) {
-				GameObject gameObject = (GameObject)Instantiate (app.model.groundModel.prefabBawah);
-				app.model.groundModel.poolPrefabBawah.Add (gameObject);
+			// inisialisasi pool komponen prefab
+			app.model.groundModel.prefabsRigidbody = new List<Rigidbody2D>();
+			app.model.groundModel.prefabsCollider = new List<Collider2D>();
+			app.model.groundModel.prefabsSprite = new List<Sprite>();
+			for (int i = 0; i < app.model.groundModel.prefabs.Length; i++) {
+				app.model.groundModel.prefabsRigidbody.Add (app.model.groundModel.prefabs [i].GetComponent<Rigidbody2D> ());
+				app.model.groundModel.prefabsCollider.Add (app.model.groundModel.prefabs [i].GetComponent<Collider2D> ());
+				app.model.groundModel.prefabsSprite.Add (app.model.groundModel.prefabs [i].GetComponent<Sprite> ());
+
 			}
-			for (int i = 0; i < app.model.groundModel.banyakPoolPrefabDatar; i++) {
-				GameObject gameObject = (GameObject)Instantiate (app.model.groundModel.prefabDatar);
-				app.model.groundModel.poolPrefabDatar.Add (gameObject);
+
+			// inisialisasi pool tanah
+			app.model.groundModel.prefabs [0].SetActive (false);
+			app.model.groundModel.prefabs [0].tag = GroundModel.TAG_INACTIVE;
+			app.model.groundModel.pool = new List<GameObject>();
+			app.model.groundModel.poolRigidbody = new List<Rigidbody2D>();
+			app.model.groundModel.poolCollider = new List<Collider2D>();
+			app.model.groundModel.poolSprite = new List<Sprite>();
+			app.model.groundModel.indexFirstActive = GroundModel.INDEX_INACTIVE;
+			app.model.groundModel.indexNextActive = 0;
+			for (int i = 0; i < app.model.groundModel.poolSize; i++) {
+				GameObject groundObject = (GameObject)Instantiate (app.model.groundModel.prefabs[0]);
+				app.model.groundModel.pool.Add (groundObject);
+				app.model.groundModel.poolRigidbody.Add (groundObject.GetComponent<Rigidbody2D> ());
+				app.model.groundModel.poolCollider.Add (groundObject.GetComponent<Collider2D> ());
+				app.model.groundModel.poolSprite.Add (groundObject.GetComponent<Sprite> ());
 			}
 
 			// inisialisasi variabel koordinat dan jarak
 			app.model.groundModel.xRight = app.model.groundModel.poolDisplayWidthRatio * Camera.main.orthographicSize * ((float) Camera.main.pixelWidth / (float) Camera.main.pixelHeight);
 			app.model.groundModel.xLeft = -app.model.groundModel.xRight;
 			app.model.groundModel.yLast = 2.0f * (app.model.groundModel.groundDisplayHeightRatio - 0.5f) * Camera.main.orthographicSize;
-			app.model.groundModel.jarakTetangga = app.model.groundModel.prefabBawah.GetComponent<SpriteRenderer>().bounds.size;
+			app.model.groundModel.boundSize = app.model.groundModel.prefabs[0].GetComponent<SpriteRenderer>().bounds.size;
 
 			// mengaktifkan tanah di scene awal
-			float xCurrent = app.model.groundModel.xLeft - app.model.groundModel.jarakTetangga.x;
+			float xCurrent = app.model.groundModel.xLeft - app.model.groundModel.boundSize.x;
 			while (xCurrent <= app.model.groundModel.xRight) {
-				xCurrent += app.model.groundModel.jarakTetangga.x;
-				ActivateFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
-				GameObject gameObject = GetLastActiveFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
+				xCurrent += app.model.groundModel.boundSize.x;
+				ActivateFromPool (GroundModel.ID_GROUND_FLAT);
+				GameObject gameObject = GetLastActive();
 				gameObject.transform.position = new Vector3 (
 					xCurrent,
 					app.model.groundModel.yLast,
@@ -46,189 +56,105 @@ namespace Game {
 
 		void Update() {
 			// menggerakkan tanah
-			int index_sekarang = app.model.groundModel.indexPertamaPrefabDatar;
-			if (index_sekarang != GroundModel.INDEX_INACTIVE) {
-				int index_batas = app.model.groundModel.indexSelanjutnyaPrefabDatar;
+			int index_now = app.model.groundModel.indexFirstActive;
+			if (index_now != GroundModel.INDEX_INACTIVE) {
+				int index_border = app.model.groundModel.indexNextActive;
 				float translation_x = -app.model.groundModel.baseGroundSpeed * Time.deltaTime;
 				do {
-					app.model.groundModel.poolPrefabDatar[index_sekarang].GetComponent<Rigidbody2D>().transform.Translate (
+					app.model.groundModel.pool[index_now].GetComponent<Rigidbody2D>().transform.Translate (
 						translation_x, 0.0f, 0.0f
 					);
-					index_sekarang++;
-					if (index_sekarang >= app.model.groundModel.poolPrefabDatar.Count) {
-						index_sekarang = 0;
+					index_now++;
+					if (index_now >= app.model.groundModel.pool.Count) {
+						index_now = 0;
 					}
-				} while (index_sekarang != index_batas);
+				} while (index_now != index_border);
 			}
 
 			// menyembunyikan tanah yang melewati batas kiri
-			while (GetFirstActiveFromPool (GroundModel.ID_POOL_PREFAB_DATAR).transform.position.x <= app.model.groundModel.xLeft) {
-				DeactivateFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
+			while (GetFirstActive().transform.position.x <= app.model.groundModel.xLeft) {
+				DeactivateFromPool ();
 			}
 
 			// menempatkan tanah baru jika tanah paling kanan melewati batas kanan
-			GameObject tanah_paling_kanan = GetLastActiveFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
-			while (tanah_paling_kanan.transform.position.x <= app.model.groundModel.xRight) {
-				ActivateFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
-				float xCurrent = tanah_paling_kanan.transform.position.x + app.model.groundModel.jarakTetangga.x;
-				tanah_paling_kanan = GetLastActiveFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
-				tanah_paling_kanan.transform.position = new Vector3 (
-					xCurrent,
+			GameObject rightmost_ground = GetLastActive();
+			while (rightmost_ground.transform.position.x <= app.model.groundModel.xRight) {
+				ActivateFromPool (GroundModel.ID_GROUND_FLAT);
+				float xNext = rightmost_ground.transform.position.x + app.model.groundModel.boundSize.x;
+				rightmost_ground = GetLastActive();
+				rightmost_ground.transform.position = new Vector3 (
+					xNext,
 					app.model.groundModel.yLast,
-					tanah_paling_kanan.transform.position.z
+					rightmost_ground.transform.position.z
 				);
 			}
-
-			/*
-			foreach (Rigidbody2D rigidbody in groundRigidbodyList) {
-				rigidbody.transform.Translate (-app.model.groundModel.groundSpeed, 0.0f, 0.0f);
-			}
-			*/
 		}
 
 		// mengaktifkan ground
-		public void ActivateGround(GameObject ground) {
-			ground.SetActive (true);
-			ground.tag = GroundModel.TAG_ACTIVE;
+		public void ActivateGround(int poolIndex, int groundId) {
+			app.model.groundModel.pool [poolIndex].SetActive (true);
+			app.model.groundModel.pool [poolIndex].tag = GroundModel.TAG_ACTIVE;
+			app.model.groundModel.poolRigidbody [poolIndex] = app.model.groundModel.prefabsRigidbody [groundId];
+			app.model.groundModel.poolCollider [poolIndex] = app.model.groundModel.prefabsCollider [groundId];
+			app.model.groundModel.poolSprite [poolIndex] = app.model.groundModel.prefabsSprite [groundId];
+
 		}
 
 		// menonaktifkan ground
-		public void DeactivateGround(GameObject ground) {
-			ground.SetActive (false);
-			ground.tag = GroundModel.TAG_INACTIVE;
+		public void DeactivateGround(int poolIndex) {
+			app.model.groundModel.pool [poolIndex].SetActive (false);
+			app.model.groundModel.pool [poolIndex].tag = GroundModel.TAG_INACTIVE;
 		}
 
-		// mendapatkan ground aktif pertama (paling kiri) dari pool dengan ID id_pool
-		public GameObject GetFirstActiveFromPool(int id_pool) {
-			switch (id_pool) {
-			case GroundModel.ID_POOL_PREFAB_BAWAH:
-				return GetFirstActiveFromPool (
-					app.model.groundModel.poolPrefabBawah,
-					app.model.groundModel.indexPertamaPrefabBawah
-				);
-				break;
-			case GroundModel.ID_POOL_PREFAB_DATAR:
-				return GetFirstActiveFromPool (
-					app.model.groundModel.poolPrefabDatar,
-					app.model.groundModel.indexPertamaPrefabDatar
-				);
-				break;
-			}
-			return null;
-		}
-		// fungsi antara GetFirstActiveFromPool
-		private GameObject GetFirstActiveFromPool(List<GameObject> pool, int indexPertama) {
-			if (indexPertama == GroundModel.INDEX_INACTIVE)
-				return null;
-			return pool [indexPertama];
+		// mendapatkan indeks dari ground aktif pertama (paling kiri)
+		public int GetIndexFirstActive() {
+			return app.model.groundModel.indexFirstActive;
 		}
 
-		// mendapatkan ground aktif terakhir (paling kanan) dari pool dengan ID id_pool
-		public GameObject GetLastActiveFromPool(int id_pool) {
-			switch (id_pool) {
-			case GroundModel.ID_POOL_PREFAB_BAWAH:
-				return GetLastActiveFromPool (
-					app.model.groundModel.poolPrefabBawah,
-					app.model.groundModel.indexPertamaPrefabBawah,
-					app.model.groundModel.indexSelanjutnyaPrefabBawah
-				);
-				break;
-			case GroundModel.ID_POOL_PREFAB_DATAR:
-				return GetLastActiveFromPool (
-					app.model.groundModel.poolPrefabDatar,
-					app.model.groundModel.indexPertamaPrefabDatar,
-					app.model.groundModel.indexSelanjutnyaPrefabDatar
-				);
-				break;
-			}
-			return null;
-		}
-		// fungsi antara GetLastActiveFromPool
-		private GameObject GetLastActiveFromPool(List<GameObject> pool, int indexPertama, int indexSelanjutnya) {
-			if (indexPertama == GroundModel.INDEX_INACTIVE)
-				return null;
-			int last_index = indexSelanjutnya - 1;
-			if (last_index < 0)
-				last_index += pool.Count;
-			return pool [last_index];
+		// mengembalikan ground aktif pertama (paling kiri)
+		public GameObject GetFirstActive() {
+			return app.model.groundModel.pool [GetIndexFirstActive ()];
 		}
 
-		// mengaktifkan ground paling kanan dari pool dengan ID id_pool
-		public void ActivateFromPool(int id_pool) {
-			int indexPertama, indexSelanjutnya;
-			switch (id_pool) {
-			case GroundModel.ID_POOL_PREFAB_BAWAH:
-				indexPertama = app.model.groundModel.indexPertamaPrefabBawah;
-				indexSelanjutnya = app.model.groundModel.indexSelanjutnyaPrefabBawah;
-				ActivateFromPool (
-					app.model.groundModel.poolPrefabBawah,
-					ref indexPertama,
-					ref indexSelanjutnya
-				);
-				app.model.groundModel.indexPertamaPrefabBawah = indexPertama;
-				app.model.groundModel.indexSelanjutnyaPrefabBawah = indexSelanjutnya;
-				break;
-			case GroundModel.ID_POOL_PREFAB_DATAR:
-				indexPertama = app.model.groundModel.indexPertamaPrefabDatar;
-				indexSelanjutnya = app.model.groundModel.indexSelanjutnyaPrefabDatar;
-				ActivateFromPool (
-					app.model.groundModel.poolPrefabDatar,
-					ref indexPertama,
-					ref indexSelanjutnya
-				);
-				app.model.groundModel.indexPertamaPrefabDatar = indexPertama;
-				app.model.groundModel.indexSelanjutnyaPrefabDatar = indexSelanjutnya;
-				break;
+		// mendapatkan indeks dari ground aktif terakhir (paling kanan)
+		public int GetIndexLastActive() {
+			if (app.model.groundModel.indexFirstActive == -1) {
+				return -1;
+			}
+			int result = app.model.groundModel.indexNextActive - 1;
+			if (result < 0) {
+				result = app.model.groundModel.pool.Count - 1;
+			}
+			return result;
+		}
+
+		// mengembalikan ground aktif terakhir (paling kanan)
+		public GameObject GetLastActive() {
+			return app.model.groundModel.pool [GetIndexLastActive ()];
+		}
+
+		// mengaktifkan ground selanjutnya sebagai ground bertipe groundId
+		public void ActivateFromPool(int groundId) {
+			ActivateGround (app.model.groundModel.indexNextActive, groundId);
+			if (app.model.groundModel.indexFirstActive == GroundModel.INDEX_INACTIVE) {
+				app.model.groundModel.indexFirstActive = app.model.groundModel.indexNextActive;
+			}
+			app.model.groundModel.indexNextActive++;
+			if (app.model.groundModel.indexNextActive >= app.model.groundModel.pool.Count) {
+				app.model.groundModel.indexNextActive = 0;
 			}
 		}
-		// fungsi antara ActivateFromPool
-		private void ActivateFromPool(List<GameObject> pool, ref int indexPertama, ref int indexSelanjutnya) {
-			if (indexPertama != indexSelanjutnya) {
-				ActivateGround (pool [indexSelanjutnya]);
-				if (indexPertama == GroundModel.INDEX_INACTIVE) {
-					indexPertama = indexSelanjutnya;
+
+		// menonaktifkan ground paling kiri
+		public void DeactivateFromPool() {
+			if (app.model.groundModel.indexFirstActive != GroundModel.INDEX_INACTIVE) {
+				DeactivateGround (app.model.groundModel.indexFirstActive);
+				app.model.groundModel.indexFirstActive++;
+				if (app.model.groundModel.indexFirstActive >= app.model.groundModel.pool.Count) {
+					app.model.groundModel.indexFirstActive = 0;
 				}
-				indexSelanjutnya++;
-				if (indexSelanjutnya >= pool.Count) {
-					indexSelanjutnya = 0;
-				}
-			}
-		}
-
-		// menonaktifkan ground paling kiri dari pool dengan ID id_pool
-		public void DeactivateFromPool(int id_pool) {
-			int indexPertama;
-			switch (id_pool) {
-			case GroundModel.ID_POOL_PREFAB_BAWAH:
-				indexPertama = app.model.groundModel.indexPertamaPrefabBawah;
-				DeactivateFromPool (
-					app.model.groundModel.poolPrefabBawah,
-					ref indexPertama,
-					app.model.groundModel.indexSelanjutnyaPrefabBawah
-				);
-				app.model.groundModel.indexPertamaPrefabBawah = indexPertama;
-				break;
-			case GroundModel.ID_POOL_PREFAB_DATAR:
-				indexPertama = app.model.groundModel.indexPertamaPrefabDatar;
-				DeactivateFromPool (
-					app.model.groundModel.poolPrefabDatar,
-					ref indexPertama,
-					app.model.groundModel.indexSelanjutnyaPrefabDatar
-				);
-				app.model.groundModel.indexPertamaPrefabDatar = indexPertama;
-				break;
-			}
-		}
-		// fungsi antara ActivateFromPool
-		private void DeactivateFromPool(List<GameObject> pool, ref int indexPertama, int indexSelanjutnya) {
-			if (indexPertama != GroundModel.INDEX_INACTIVE) {
-				DeactivateGround (pool [indexPertama]);
-				indexPertama++;
-				if (indexPertama >= pool.Count) {
-					indexPertama = 0;
-				}
-				if (indexPertama == indexSelanjutnya) {
-					indexPertama = GroundModel.INDEX_INACTIVE;
+				if (app.model.groundModel.indexFirstActive == app.model.groundModel.indexNextActive) {
+					app.model.groundModel.indexFirstActive = GroundModel.INDEX_INACTIVE;
 				}
 			}
 		}
