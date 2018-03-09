@@ -49,7 +49,7 @@ namespace Game
 
 			// cek waktu kapan menggenerate obstacle baru
 			if (Time.time >= app.model.obstacleModel.nextObstacleTime) {
-				GameObject tanahPalingKanan = app.controller.groundController.GetLastActive ();
+				GameObject tanahPalingKanan = app.controller.groundController.GetLastActiveFromPool (GroundModel.ID_POOL_PREFAB_DATAR);
 				Vector3 lokasiTanahPalingKanan = tanahPalingKanan.transform.position;
 
 				app.model.obstacleModel.nextObstacleTime += 3.0f; //harusnya random waktunya
@@ -58,7 +58,7 @@ namespace Game
 				ActivateFromPool(ObstacleModel.ID_POOL_OBSTACLE_SMALL);
 				app.model.obstacleModel.poolObstacleSmall [indexObstacleAktif].transform.position = new Vector3 (
 					lokasiTanahPalingKanan.x,
-					lokasiTanahPalingKanan.y + app.model.groundModel.boundSize.y,
+					lokasiTanahPalingKanan.y + app.model.groundModel.jarakTetangga.y,
 					lokasiTanahPalingKanan.z
 				);
 			}
