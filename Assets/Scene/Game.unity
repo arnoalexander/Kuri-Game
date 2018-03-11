@@ -266,6 +266,11 @@ MonoBehaviour:
   baseGroundSpeed: 2.75
   poolDisplayWidthRatio: 2
   groundDisplayHeightRatio: 0.33
+  prefabs:
+  - {fileID: 1076304340157024, guid: 0d7fa8a8b9009e5478ca3bdeed373a9a, type: 2}
+  - {fileID: 1561709755658416, guid: da09723cc995adf438dbf0690e114f0a, type: 2}
+  prefabIds: 0100000000000000
+  poolSizes: 32000000c8000000
   prefabDatar: {fileID: 1076304340157024, guid: 0d7fa8a8b9009e5478ca3bdeed373a9a,
     type: 2}
   prefabBawah: {fileID: 1561709755658416, guid: da09723cc995adf438dbf0690e114f0a,

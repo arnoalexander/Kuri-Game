@@ -24,11 +24,11 @@ GameObject:
   - component: {fileID: 60650253849559020}
   m_Layer: 8
   m_Name: grassHill_right
-  m_TagString: Ground
+  m_TagString: Ground.Inactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4762486107889430
 Transform:
   m_ObjectHideFlags: 1
