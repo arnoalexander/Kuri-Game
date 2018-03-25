@@ -21,6 +21,7 @@ namespace Game {
 
 		public void Jump() {
 			playerRigidBody.AddForce(new Vector2(0.0f, app.model.playerModel.playerJumpSpeed));
+			app.model.playerModel.isJump = true;
 		}
 
 	}

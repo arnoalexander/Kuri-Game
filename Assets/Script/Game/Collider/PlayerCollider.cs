@@ -13,5 +13,21 @@ namespace Game {
 				);
 			}
 		}
+
+
+		void OnCollisionEnter2D(Collision2D other) {
+			if (other.gameObject.tag == "Ground") {
+				app.model.playerModel.isJump = false;
+				Debug.Log ("hit");
+			}
+
+		}
+
+		void onTriggerExit2D(Collider2D other){
+			if (other.gameObject.tag == "Ground") {
+				app.model.playerModel.isJump = true;
+				Debug.Log ("jump");
+			}
+		}
 	}
 }

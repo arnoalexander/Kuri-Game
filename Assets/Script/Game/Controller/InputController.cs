@@ -6,6 +6,8 @@ using UnityEngine;
 
 namespace Game {
 	public class InputController : Element {
+		public GameObject smoke;
+		public bool issmoke;
 
 		void Start() {
 			app.model.inputModel.isDragging = false;
@@ -23,13 +25,27 @@ namespace Game {
 		}
 
 		void DetectMouseInput(){
+			/*
 			if (Input.GetMouseButtonDown (0)) {
 				app.controller.weaponController.CreateBall ();
 			}
+			*/
+		}
+
+		IEnumerator Example()
+		{
+			print(Time.time);
+			issmoke = true;
+			yield return new WaitForSeconds(1);
+			app.model.enemyModel.enemyGameObject.GetComponent<Rigidbody2D> ().transform.Translate (
+				-app.model.enemyModel.obstacleTranslation, 0.0f, 0.0f);
+			print(Time.time);
+				issmoke = false;
+				smoke.SetActive (false);
 		}
 
 		void DetectKeyboardInput() {
-			if (Input.GetKeyDown (KeyCode.Space)) {
+			if ((Input.GetKeyDown (KeyCode.Space))&&(app.model.playerModel.isJump==false)) {
 				app.controller.playerController.Jump ();
 			}
 			if (Input.GetKeyDown (KeyCode.D)) {
@@ -37,6 +53,10 @@ namespace Game {
 			}
 			if (Input.GetKeyDown (KeyCode.R)) {
 				SceneManager.LoadScene("Game");
+			}
+			if ((Input.GetKeyDown (KeyCode.M))&&(issmoke==false)&&(app.model.playerModel.isJump==false)) {
+				smoke.SetActive (true);
+				StartCoroutine(Example());
 			}
 		}
 
