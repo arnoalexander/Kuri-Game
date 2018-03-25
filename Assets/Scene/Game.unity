@@ -509,9 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a733556108fde284995b7ca50ef8a7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  banyakPoolObstacleSmall: 20
-  prefabObstacleSmall: {fileID: 1617128813695920, guid: beaf2529baf7bdb4fa0b64661062743e,
-    type: 2}
+  prefabs:
+  - {fileID: 1617128813695920, guid: beaf2529baf7bdb4fa0b64661062743e, type: 2}
+  prefabIds: 00000000
+  poolSizes: 15000000
 --- !u!4 &464971132
 Transform:
   m_ObjectHideFlags: 0

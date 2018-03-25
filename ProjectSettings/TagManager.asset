@@ -4,10 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
-  - Ground.Inactive
-  - Obstacle.Small
   - Obstacle.Inactive
+  - Obstacle.Active
+  - Ground.Active
+  - Ground.Inactive
   layers:
   - Default
   - TransparentFX

@@ -41,7 +41,7 @@ namespace Game {
 
 		// tag untuk ground
 		public const string TAG_INACTIVE = "Ground.Inactive"; // ground tidak aktif (tidak ditampilkan)
-		public const string TAG_ACTIVE = "Ground"; // ground aktif (ditampilkan)
+		public const string TAG_ACTIVE = "Ground.Active"; // ground aktif (ditampilkan)
 
 		// pool objek tanah
 		public List<GameObject>[] pool { get; set; }

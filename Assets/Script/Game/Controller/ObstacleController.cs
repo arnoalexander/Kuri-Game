@@ -9,13 +9,25 @@ namespace Game
 
 		void Start() {
 			// inisialisasi pool halangan
-			app.model.obstacleModel.poolObstacleSmall = new List<GameObject>();
-			DeactivateObstacle (app.model.obstacleModel.prefabObstacleSmall);
-			app.model.obstacleModel.indexPertamaObstacleSmall = ObstacleModel.INDEX_INACTIVE;
-			app.model.obstacleModel.indexSelanjutnyaObstacleSmall = 0;
-			for (int i = 0; i < app.model.obstacleModel.banyakPoolObstacleSmall; i++) {
-				GameObject gameObject = (GameObject)Instantiate (app.model.obstacleModel.prefabObstacleSmall);
-				app.model.obstacleModel.poolObstacleSmall.Add (gameObject);
+			app.model.obstacleModel.pool = new List<GameObject>[app.model.obstacleModel.prefabs.Length];
+			for (int prefabIndex = 0; prefabIndex < app.model.obstacleModel.prefabs.Length; prefabIndex++) {
+				app.model.obstacleModel.pool [prefabIndex] = new List<GameObject> ();
+				DeactivateObstacle (app.model.obstacleModel.prefabs [prefabIndex]);
+				for (int iter_num = 0; iter_num < app.model.obstacleModel.poolSizes [prefabIndex]; iter_num++) {
+					GameObject obstaclePrefab = (GameObject)Instantiate (app.model.obstacleModel.prefabs [prefabIndex]);
+					app.model.obstacleModel.pool [prefabIndex].Add (obstaclePrefab);
+				}
+			}
+
+			// inisialisasi index pool halangan
+			app.model.obstacleModel.indexFirstActive = new int[app.model.obstacleModel.prefabs.Length];
+			app.model.obstacleModel.indexNextActive = new int[app.model.obstacleModel.prefabs.Length];
+			app.model.obstacleModel.prefabIdToPrefabIndex = new int[System.Enum.GetValues (typeof(ObstacleModel.ID)).Length];
+			for (int prefabIndex = 0; prefabIndex < app.model.obstacleModel.prefabs.Length; prefabIndex++) {
+				app.model.obstacleModel.indexFirstActive [prefabIndex] = ObstacleModel.INDEX_INACTIVE;
+				app.model.obstacleModel.indexNextActive [prefabIndex] = 0;
+				int prefabId = (int)app.model.obstacleModel.prefabIds [prefabIndex];
+				app.model.obstacleModel.prefabIdToPrefabIndex [prefabId] = prefabIndex;
 			}
 
 			// inisialisasi waktu antar obstacle
@@ -24,51 +36,59 @@ namespace Game
 
 		void Update() {
 			// gerakkan obstacle
-			int index_sekarang = app.model.obstacleModel.indexPertamaObstacleSmall;
-			if (index_sekarang != ObstacleModel.INDEX_INACTIVE) {
-				int index_batas = app.model.obstacleModel.indexSelanjutnyaObstacleSmall;
-				float translation_x = -app.model.groundModel.baseGroundSpeed * Time.deltaTime;
-				do {
-					app.model.obstacleModel.poolObstacleSmall[index_sekarang].GetComponent<Rigidbody2D>().transform.Translate (
-						translation_x, 0.0f, 0.0f
-					);
-					index_sekarang++;
-					if (index_sekarang >= app.model.obstacleModel.poolObstacleSmall.Count) {
-						index_sekarang = 0;
-					}
-				} while (index_sekarang != index_batas);
+			for (int prefabIndex = 0; prefabIndex < app.model.obstacleModel.prefabs.Length; prefabIndex++) {
+				int indexNow = app.model.obstacleModel.indexFirstActive [prefabIndex];
+				if (indexNow != ObstacleModel.INDEX_INACTIVE) {
+					int indexBorder = app.model.obstacleModel.indexNextActive [prefabIndex];
+					float xTranslation = -app.model.groundModel.baseGroundSpeed * Time.deltaTime;
+					do {
+						app.model.obstacleModel.pool[prefabIndex][indexNow].GetComponent<Rigidbody2D>().transform.Translate(
+							xTranslation, 0.0f, 0.0f
+						);
+						indexNow++;
+						if (indexNow >= app.model.obstacleModel.pool[prefabIndex].Count) {
+							indexNow = 0;
+						}
+					} while (indexNow != indexBorder);
+				}
 			}
 
 			// menyembunyikan obstacle yang terlalu kiri
-			if (app.model.obstacleModel.indexPertamaObstacleSmall != -1) {
-				while (app.model.obstacleModel.poolObstacleSmall[app.model.obstacleModel.indexPertamaObstacleSmall].transform.position.x <= app.model.groundModel.xLeft) {
-					DeactivateFromPool (ObstacleModel.ID_POOL_OBSTACLE_SMALL);
+			for (int prefabIndex = 0; prefabIndex < app.model.obstacleModel.prefabs.Length; prefabIndex++) {
+				ObstacleModel.ID prefabId = app.model.obstacleModel.prefabIds [prefabIndex];
+				if (GetIndexFirstActive (prefabId) != ObstacleModel.INDEX_INACTIVE) {
+					GameObject leftmostObstacle = app.model.obstacleModel.pool [prefabIndex] [GetIndexFirstActive (prefabId)];
+					while (leftmostObstacle.transform.position.x <= app.model.groundModel.xLeft) {
+						DeactivateFromPool (prefabId);
+						leftmostObstacle = app.model.obstacleModel.pool [prefabIndex] [GetIndexFirstActive (prefabId)];
+					}
 				}
 			}
 
 
 			// cek waktu kapan menggenerate obstacle baru
+			// TODO : ganti
 			if (Time.time >= app.model.obstacleModel.nextObstacleTime) {
-				int tanahPalingKananPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_FLAT);
-				int tanahPalingKananIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_FLAT);
-				GameObject tanahPalingKanan = app.model.groundModel.pool [tanahPalingKananPrefabIndex] [tanahPalingKananIndex];
-				Vector3 lokasiTanahPalingKanan = tanahPalingKanan.transform.position;
+				int rightmostGroundPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_FLAT);
+				int rightmostGroundPoolIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_FLAT);
+				GameObject rightmostGround = app.model.groundModel.pool [rightmostGroundPrefabIndex] [rightmostGroundPoolIndex];
+				Vector3 rightmostGroundPosition = rightmostGround.transform.position;
 
-				app.model.obstacleModel.nextObstacleTime += 3.0f; //harusnya random waktunya
+				app.model.obstacleModel.nextObstacleTime += 3.0f; // TODO: harusnya random
 
-				int indexObstacleAktif = app.model.obstacleModel.indexSelanjutnyaObstacleSmall; //harusnya random obstacle yang mana
-				ActivateFromPool(ObstacleModel.ID_POOL_OBSTACLE_SMALL);
-				app.model.obstacleModel.poolObstacleSmall [indexObstacleAktif].transform.position = new Vector3 (
-					lokasiTanahPalingKanan.x,
-					lokasiTanahPalingKanan.y + app.model.groundModel.boundSize.y,
-					lokasiTanahPalingKanan.z
+				ObstacleModel.ID nextObstacleID = ObstacleModel.ID.OBSTACLE_SMALL_SLIME; // TODO: seharusnya random
+				ActivateFromPool(nextObstacleID);
+				app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
+					rightmostGroundPosition.x,
+					rightmostGroundPosition.y + app.model.groundModel.boundSize.y,
+					rightmostGroundPosition.z
 				);
 			}
 		}
 
-		public void ActivateObstacleSmall (GameObject obstacle) {
+		public void ActivateObstacle (GameObject obstacle) {
 			obstacle.SetActive (true);
-			obstacle.tag = ObstacleModel.TAG_SMALL;
+			obstacle.tag = ObstacleModel.TAG_ACTIVE;
 		}
 
 		public void DeactivateObstacle (GameObject obstacle) {
@@ -76,62 +96,54 @@ namespace Game
 			obstacle.tag = ObstacleModel.TAG_INACTIVE;
 		}
 
-		// mengaktifkan obstacle paling kanan dari pool dengan ID id_pool
-		public void ActivateFromPool(int id_pool) {
-			int indexPertama, indexSelanjutnya;
-			switch (id_pool) {
-			case ObstacleModel.ID_POOL_OBSTACLE_SMALL:
-				indexPertama = app.model.obstacleModel.indexPertamaObstacleSmall;
-				indexSelanjutnya = app.model.obstacleModel.indexSelanjutnyaObstacleSmall;
-				ActivateFromPool (
-					app.model.obstacleModel.poolObstacleSmall,
-					ref indexPertama,
-					ref indexSelanjutnya
-				);
-				app.model.obstacleModel.indexPertamaObstacleSmall = indexPertama;
-				app.model.obstacleModel.indexSelanjutnyaObstacleSmall = indexSelanjutnya;
-				break;
-			}
+		// mendapatkan index tempat prefab ber-id prefabId pada array of prefab
+		public int GetPrefabIndex(ObstacleModel.ID prefabId) {
+			return app.model.obstacleModel.prefabIdToPrefabIndex [(int) prefabId];
 		}
-		// fungsi antara ActivateFromPool
-		private void ActivateFromPool(List<GameObject> pool, ref int indexPertama, ref int indexSelanjutnya) {
-			if (indexPertama != indexSelanjutnya) {
-				ActivateObstacleSmall (pool [indexSelanjutnya]);
-				if (indexPertama == ObstacleModel.INDEX_INACTIVE) {
-					indexPertama = indexSelanjutnya;
+
+		// mendapatkan index tempat obstacle yang sedang aktif, diaktifkan paling awal, dan memiliki prefab id prefabId, pada pool yang sesuai
+		public int GetIndexFirstActive(ObstacleModel.ID prefabId) {
+			int prefabIndex = GetPrefabIndex (prefabId);
+			return app.model.obstacleModel.indexFirstActive [prefabIndex];
+		}
+
+		// mendapatkan index tempat obstacle yang sedang aktif, diaktifkan paling awal, dan memiliki prefab id prefabId, pada pool yang sesuai
+		public int GetIndexLastActive(ObstacleModel.ID prefabId) {
+			int prefabIndex = GetPrefabIndex (prefabId);
+			if (app.model.obstacleModel.indexFirstActive [prefabIndex] == ObstacleModel.INDEX_INACTIVE)
+				return ObstacleModel.INDEX_INACTIVE;
+			int result = app.model.obstacleModel.indexNextActive [prefabIndex] - 1;
+			if (result < 0)
+				result = app.model.obstacleModel.pool [prefabIndex].Count - 1;
+			return result;
+		}
+
+		// mengaktifkan obstacle selanjutnya dari pool untuk prefab dengan ID prefabId
+		public void ActivateFromPool(ObstacleModel.ID prefabId) {
+			int prefabIndex = GetPrefabIndex (prefabId);
+			if (app.model.obstacleModel.indexFirstActive [prefabIndex] != app.model.obstacleModel.indexNextActive [prefabIndex]) {
+				ActivateObstacle (app.model.obstacleModel.pool [prefabIndex][app.model.obstacleModel.indexNextActive [prefabIndex]]);
+				if (app.model.obstacleModel.indexFirstActive [prefabIndex] == ObstacleModel.INDEX_INACTIVE) {
+					app.model.obstacleModel.indexFirstActive [prefabIndex] = app.model.obstacleModel.indexNextActive [prefabIndex];
 				}
-				indexSelanjutnya++;
-				if (indexSelanjutnya >= pool.Count) {
-					indexSelanjutnya = 0;
+				app.model.obstacleModel.indexNextActive [prefabIndex]++;
+				if (app.model.obstacleModel.indexNextActive [prefabIndex] >= app.model.obstacleModel.pool [prefabIndex].Count) {
+					app.model.obstacleModel.indexNextActive [prefabIndex] = 0;
 				}
 			}
 		}
 
-		// menonaktifkan obstacle paling kiri dari pool dengan ID id_pool
-		public void DeactivateFromPool(int id_pool) {
-			int indexPertama;
-			switch (id_pool) {
-			case ObstacleModel.ID_POOL_OBSTACLE_SMALL:
-				indexPertama = app.model.obstacleModel.indexPertamaObstacleSmall;
-				DeactivateFromPool (
-					app.model.obstacleModel.poolObstacleSmall,
-					ref indexPertama,
-					app.model.obstacleModel.indexSelanjutnyaObstacleSmall
-				);
-				app.model.obstacleModel.indexPertamaObstacleSmall = indexPertama;
-				break;
-			}
-		}
-		// fungsi antara ActivateFromPool
-		private void DeactivateFromPool(List<GameObject> pool, ref int indexPertama, int indexSelanjutnya) {
-			if (indexPertama != ObstacleModel.INDEX_INACTIVE) {
-				DeactivateObstacle (pool [indexPertama]);
-				indexPertama++;
-				if (indexPertama >= pool.Count) {
-					indexPertama = 0;
+		// menonaktifkan obstacle pertama yang aktif dari pool untuk prefab dengan ID prefabId
+		public void DeactivateFromPool(ObstacleModel.ID prefabId) {
+			int prefabIndex = GetPrefabIndex (prefabId);
+			if (app.model.obstacleModel.indexFirstActive [prefabIndex] != ObstacleModel.INDEX_INACTIVE) {
+				DeactivateObstacle (app.model.obstacleModel.pool [prefabIndex][app.model.obstacleModel.indexFirstActive [prefabIndex]]);
+				app.model.obstacleModel.indexFirstActive [prefabIndex]++;
+				if (app.model.obstacleModel.indexFirstActive [prefabIndex] >= app.model.obstacleModel.pool [prefabIndex].Count) {
+					app.model.obstacleModel.indexFirstActive [prefabIndex] = 0;
 				}
-				if (indexPertama == indexSelanjutnya) {
-					indexPertama = ObstacleModel.INDEX_INACTIVE;
+				if (app.model.obstacleModel.indexFirstActive [prefabIndex] == app.model.obstacleModel.indexNextActive [prefabIndex]) {
+					app.model.obstacleModel.indexFirstActive [prefabIndex] = ObstacleModel.INDEX_INACTIVE;
 				}
 			}
 		}

@@ -15,7 +15,7 @@ namespace Game {
 			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed-app.model.enemyModel.enemyAccelSpeed;
 		}
 		void OnTriggerEnter2D(Collider2D other) {
-			if(other.gameObject.CompareTag(ObstacleModel.TAG_SMALL)) {
+			if(other.gameObject.CompareTag(ObstacleModel.TAG_ACTIVE)) {
 				app.controller.obstacleController.DeactivateObstacle (other.gameObject);
 				StartCoroutine (AccelerateEnemy ());
 			}
