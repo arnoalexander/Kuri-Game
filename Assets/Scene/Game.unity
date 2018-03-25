@@ -625,6 +625,7 @@ Transform:
   - {fileID: 1668921809}
   - {fileID: 2017632459}
   - {fileID: 464971132}
+  - {fileID: 1480187987}
   m_Father: {fileID: 2093002455}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -646,6 +647,7 @@ MonoBehaviour:
   enemyModel: {fileID: 1668921808}
   weaponModel: {fileID: 2017632460}
   obstacleModel: {fileID: 464971131}
+  scoreModel: {fileID: 1480187988}
 --- !u!1001 &536126372
 Prefab:
   m_ObjectHideFlags: 0
@@ -1049,7 +1051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 177112cd200f55747a9d08c1909e3f21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 150432211}
   score: 0
 --- !u!1 &782606072
 GameObject:
@@ -1141,9 +1142,6 @@ GameObject:
   m_Component:
   - component: {fileID: 830512717}
   - component: {fileID: 830512718}
-  - component: {fileID: 830512721}
-  - component: {fileID: 830512720}
-  - component: {fileID: 830512719}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -1190,45 +1188,7 @@ MonoBehaviour:
   enemyController: {fileID: 1168946737}
   weaponController: {fileID: 628766318}
   obstacleController: {fileID: 1030698821}
---- !u!114 &830512719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 830512716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177112cd200f55747a9d08c1909e3f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  score: 0
---- !u!114 &830512720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 830512716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177112cd200f55747a9d08c1909e3f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  score: 0
---- !u!114 &830512721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 830512716}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 177112cd200f55747a9d08c1909e3f21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  score: 0
+  scoreController: {fileID: 769728253}
 --- !u!1001 &933785636
 Prefab:
   m_ObjectHideFlags: 0
@@ -1710,6 +1670,47 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 88af35ac5c0b68e4c82f5788ad3ae717, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1480187986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1480187987}
+  - component: {fileID: 1480187988}
+  m_Layer: 0
+  m_Name: ScoreModel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1480187987
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1480187986}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 530421985}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1480187988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1480187986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ee7ac0b677dff42b2acc7006ac703b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreText: {fileID: 150432211}
 --- !u!1 &1527312501
 GameObject:
   m_ObjectHideFlags: 0

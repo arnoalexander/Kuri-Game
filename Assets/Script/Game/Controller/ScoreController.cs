@@ -6,16 +6,18 @@ using UnityEngine;
 namespace Game {
 	public class ScoreController : Element {
 
-		public Text scoreText;
-		public int score;
+		private Text scoreText;
+		private string text;
+		public int score =0;
 		void Start() {
 			// mendapatkan komponen rigid body dari player
-			scoreText.text = score.ToString();
+			scoreText = app.model.scoreModel.scoreText.GetComponent<Text>();
+			scoreText.text= score.ToString();
 		}
 
 		void Update() {
-				score++;
-				scoreText.text = score.ToString();
+			score++;
+			scoreText.text = score.ToString();
 		}
 
 	}
