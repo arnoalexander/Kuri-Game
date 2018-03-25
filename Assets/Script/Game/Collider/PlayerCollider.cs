@@ -5,12 +5,19 @@ using UnityEngine;
 namespace Game {
 	public class PlayerCollider : Element
 	{
+		IEnumerator AccelerateEnemy()
+		{
+			print(Time.time);
+			float tempspeed = app.model.enemyModel.baseEnemySpeed;
+			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed+app.model.enemyModel.enemyAccelSpeed;
+			yield return new WaitForSeconds(1);
+			print(Time.time);
+			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed-app.model.enemyModel.enemyAccelSpeed;
+		}
 		void OnTriggerEnter2D(Collider2D other) {
 			if(other.gameObject.CompareTag(ObstacleModel.TAG_SMALL)) {
 				app.controller.obstacleController.DeactivateObstacle (other.gameObject);
-				app.model.enemyModel.enemyGameObject.GetComponent<Rigidbody2D>().transform.Translate (
-					app.model.enemyModel.obstacleTranslation, 0.0f, 0.0f
-				);
+				StartCoroutine (AccelerateEnemy ());
 			}
 		}
 

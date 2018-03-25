@@ -32,16 +32,17 @@ namespace Game {
 			*/
 		}
 
-		IEnumerator Example()
+		IEnumerator SlowDownEnemy()
 		{
 			print(Time.time);
 			issmoke = true;
+			float tempspeed = app.model.enemyModel.baseEnemySpeed;
+			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed- app.model.enemyModel.enemySlowSpeed;
 			yield return new WaitForSeconds(1);
-			app.model.enemyModel.enemyGameObject.GetComponent<Rigidbody2D> ().transform.Translate (
-				-app.model.enemyModel.obstacleTranslation, 0.0f, 0.0f);
 			print(Time.time);
-				issmoke = false;
-				smoke.SetActive (false);
+			issmoke = false;
+			smoke.SetActive (false);
+			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed+ app.model.enemyModel.enemySlowSpeed;
 		}
 
 		void DetectKeyboardInput() {
@@ -56,7 +57,7 @@ namespace Game {
 			}
 			if ((Input.GetKeyDown (KeyCode.M))&&(issmoke==false)&&(app.model.playerModel.isJump==false)) {
 				smoke.SetActive (true);
-				StartCoroutine(Example());
+				StartCoroutine(SlowDownEnemy());
 			}
 		}
 

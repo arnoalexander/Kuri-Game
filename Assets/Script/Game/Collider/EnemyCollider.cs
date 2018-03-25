@@ -15,9 +15,7 @@ namespace Game {
 			}
 
 		}
-
-
-
+			
 		void OnTriggerEnter2D(Collider2D other) {
 			if(other.gameObject.CompareTag(ObstacleModel.TAG_SMALL)) {
 				app.controller.obstacleController.DeactivateObstacle (other.gameObject);
