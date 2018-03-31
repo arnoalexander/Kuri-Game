@@ -11,9 +11,7 @@ namespace Game
 		private int change;
 		// Use this for initialization
 		void Start () {
-			speed = 0.05f;
 			light.intensity = 1.5f;
-			changespeed = 0.003f;
 			change = -1;
 		}
 		
