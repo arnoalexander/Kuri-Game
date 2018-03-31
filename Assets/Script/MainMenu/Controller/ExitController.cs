@@ -16,15 +16,13 @@ public class ExitController : MonoBehaviour {
 
 	}
 	public void ClickExit(){
-		#if UNITY_STANDALONE
-		//Quit the application
-		Application.Quit();
-		#endif
+		
 
 		//If we are running in the editor
 		#if UNITY_EDITOR
 		//Stop playing the scene
 		UnityEditor.EditorApplication.isPlaying = false;
 		#endif
+		Application.Quit();
 	}
 }
