@@ -16,8 +16,10 @@ namespace Game {
 		}
 
 		void Update() {
-			score++;
-			scoreText.text = score.ToString();
+			if ((!app.model.screenModel.gameOver) && (!app.model.screenModel.paused)) {
+				score++;
+				scoreText.text = score.ToString ();
+			}
 		}
 
 	}

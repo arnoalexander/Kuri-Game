@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 namespace Game {
 	public class PauseController : Element {
+
 		// Use this for initialization
 		void Start () 
 		{
-
 		}
 
 		// Update is called once per frame
