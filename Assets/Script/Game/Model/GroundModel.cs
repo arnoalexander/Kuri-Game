@@ -7,7 +7,7 @@ namespace Game {
 
 		public enum ID {
 			GROUND_BOTTOM,
-			GROUND_FLAT
+			GROUND_MIDDLE
 		}
 
 		void OnValidate() {

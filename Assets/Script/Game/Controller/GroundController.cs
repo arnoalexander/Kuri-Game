@@ -32,15 +32,15 @@ namespace Game {
 			app.model.groundModel.xRight = app.model.groundModel.poolDisplayWidthRatio * Camera.main.orthographicSize * ((float) Camera.main.pixelWidth / (float) Camera.main.pixelHeight);
 			app.model.groundModel.xLeft = -app.model.groundModel.xRight;
 			app.model.groundModel.yLast = 2.0f * (app.model.groundModel.groundDisplayHeightRatio - 0.5f) * Camera.main.orthographicSize;
-			app.model.groundModel.boundSize = app.model.groundModel.prefabs[GetPrefabIndex(GroundModel.ID.GROUND_FLAT)].GetComponent<SpriteRenderer>().bounds.size;
+			app.model.groundModel.boundSize = app.model.groundModel.prefabs[GetPrefabIndex(GroundModel.ID.GROUND_MIDDLE)].GetComponent<SpriteRenderer>().bounds.size;
 
 			// mengaktifkan tanah di scene awal
 			float xCurrent = app.model.groundModel.xLeft - app.model.groundModel.boundSize.x;
 			while (xCurrent <= app.model.groundModel.xRight) {
 				xCurrent += app.model.groundModel.boundSize.x;
-				ActivateFromPool (GroundModel.ID.GROUND_FLAT);
-				int prefabIndex = GetPrefabIndex (GroundModel.ID.GROUND_FLAT);
-				int rightmostGroundIndex = GetIndexLastActive (GroundModel.ID.GROUND_FLAT);
+				ActivateFromPool (GroundModel.ID.GROUND_MIDDLE);
+				int prefabIndex = GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE);
+				int rightmostGroundIndex = GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE);
 				GameObject rightmostGround = app.model.groundModel.pool [prefabIndex] [rightmostGroundIndex];
 				rightmostGround.transform.position = new Vector3 (
 					xCurrent,
@@ -82,11 +82,11 @@ namespace Game {
 			}
 
 			// menempatkan tanah baru jika tanah paling kanan melewati batas kanan
-			GameObject rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_FLAT)] [GetIndexLastActive (GroundModel.ID.GROUND_FLAT)];
+			GameObject rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
 			while (rightmostGround.transform.position.x <= app.model.groundModel.xRight) {
-				ActivateFromPool (GroundModel.ID.GROUND_FLAT);
+				ActivateFromPool (GroundModel.ID.GROUND_MIDDLE);
 				float xNext = rightmostGround.transform.position.x + app.model.groundModel.boundSize.x;
-				rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_FLAT)] [GetIndexLastActive (GroundModel.ID.GROUND_FLAT)];
+				rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
 				rightmostGround.transform.position = new Vector3 (
 					xNext,
 					app.model.groundModel.yLast,

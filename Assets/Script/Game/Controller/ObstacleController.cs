@@ -69,8 +69,8 @@ namespace Game
 				
 			// cek waktu kapan menggenerate obstacle baru
 			if (Time.time >= app.model.obstacleModel.nextObstacleTime) {
-				int rightmostGroundPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_FLAT);
-				int rightmostGroundPoolIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_FLAT);
+				int rightmostGroundPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE);
+				int rightmostGroundPoolIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE);
 				GameObject rightmostGround = app.model.groundModel.pool [rightmostGroundPrefabIndex] [rightmostGroundPoolIndex];
 				Vector3 rightmostGroundPosition = rightmostGround.transform.position;
 
