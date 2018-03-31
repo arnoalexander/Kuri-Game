@@ -36,13 +36,19 @@ namespace Game {
 		{
 			print(Time.time);
 			issmoke = true;
-			float tempspeed = app.model.enemyModel.baseEnemySpeed;
-			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed- app.model.enemyModel.enemySlowSpeed;
-			yield return new WaitForSeconds(1);
-			print(Time.time);
+			float dif = app.model.playerModel.playerGameObject.transform.position.x - app.model.enemyModel.enemyGameObject.transform.position.x;
+			if (dif <= 5) {
+				float tempspeed = app.model.enemyModel.baseEnemySpeed;
+				app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed - app.model.enemyModel.enemySlowSpeed;
+				yield return new WaitForSeconds (1);
+				print (Time.time);
+				app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed + app.model.enemyModel.enemySlowSpeed;
+			} else {
+				yield return new WaitForSeconds (1);
+			}
+				
 			issmoke = false;
 			smoke.SetActive (false);
-			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed+ app.model.enemyModel.enemySlowSpeed;
 		}
 
 		void DetectKeyboardInput() {
