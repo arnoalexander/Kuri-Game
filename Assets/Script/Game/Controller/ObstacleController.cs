@@ -76,13 +76,24 @@ namespace Game
 
 				app.model.obstacleModel.nextObstacleTime += 3.0f; // TODO: harusnya random
 
-				ObstacleModel.ID nextObstacleID = ObstacleModel.ID.OBSTACLE_SMALL_SLIME; // TODO: seharusnya random
+				ObstacleModel.ID nextObstacleID = ObstacleModel.ID.OBSTACLE_GROUND_SPIKE; // TODO: seharusnya random
 				ActivateFromPool(nextObstacleID);
-				app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
-					app.model.groundModel.xRight,
-					rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
-					rightmostGroundPosition.z
-				);
+
+				// pemosisian
+				if (nextObstacleID == ObstacleModel.ID.OBSTACLE_GROUND_SPIKE) {
+					app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
+						app.model.groundModel.xRight,
+						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
+						rightmostGroundPosition.z
+					);
+				} else {
+					app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
+						app.model.groundModel.xRight,
+						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
+						rightmostGroundPosition.z
+					);
+				}
+
 			}
 		}
 
