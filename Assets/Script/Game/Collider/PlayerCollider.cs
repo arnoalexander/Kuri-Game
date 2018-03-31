@@ -11,9 +11,9 @@ namespace Game {
 			float tempspeed = app.model.enemyModel.baseEnemySpeed;
 			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed+app.model.enemyModel.enemyAccelSpeed;
 			yield return new WaitForSeconds(1);
-			print(Time.time);
 			app.model.enemyModel.baseEnemySpeed = app.model.enemyModel.baseEnemySpeed-app.model.enemyModel.enemyAccelSpeed;
 		}
+
 		void OnTriggerEnter2D(Collider2D other) {
 			if(other.gameObject.CompareTag(ObstacleModel.TAG_ACTIVE)) {
 				app.controller.obstacleController.DeactivateObstacle (other.gameObject);
@@ -23,17 +23,17 @@ namespace Game {
 
 
 		void OnCollisionEnter2D(Collision2D other) {
-			if (other.gameObject.tag == "Ground") {
+			if (other.gameObject.tag == GroundModel.TAG_ACTIVE) {
 				app.model.playerModel.isJump = false;
-				Debug.Log ("hit");
+				Debug.Log ("[PLAYER] On Ground");
 			}
 
 		}
 
 		void onTriggerExit2D(Collider2D other){
-			if (other.gameObject.tag == "Ground") {
+			if (other.gameObject.tag == GroundModel.TAG_ACTIVE) {
 				app.model.playerModel.isJump = true;
-				Debug.Log ("jump");
+				Debug.Log ("[PLAYER] Jump");
 			}
 		}
 	}

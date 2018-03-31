@@ -22,10 +22,12 @@ namespace Game
 			// inisialisasi index pool halangan
 			app.model.obstacleModel.indexFirstActive = new int[app.model.obstacleModel.prefabs.Length];
 			app.model.obstacleModel.indexNextActive = new int[app.model.obstacleModel.prefabs.Length];
+			app.model.obstacleModel.boundSizes = new Vector3[app.model.obstacleModel.prefabs.Length];
 			app.model.obstacleModel.prefabIdToPrefabIndex = new int[System.Enum.GetValues (typeof(ObstacleModel.ID)).Length];
 			for (int prefabIndex = 0; prefabIndex < app.model.obstacleModel.prefabs.Length; prefabIndex++) {
 				app.model.obstacleModel.indexFirstActive [prefabIndex] = ObstacleModel.INDEX_INACTIVE;
 				app.model.obstacleModel.indexNextActive [prefabIndex] = 0;
+				app.model.obstacleModel.boundSizes [prefabIndex] = app.model.obstacleModel.prefabs [prefabIndex].GetComponent<SpriteRenderer> ().bounds.size;
 				int prefabId = (int)app.model.obstacleModel.prefabIds [prefabIndex];
 				app.model.obstacleModel.prefabIdToPrefabIndex [prefabId] = prefabIndex;
 			}
@@ -64,10 +66,8 @@ namespace Game
 					}
 				}
 			}
-
-
+				
 			// cek waktu kapan menggenerate obstacle baru
-			// TODO : ganti
 			if (Time.time >= app.model.obstacleModel.nextObstacleTime) {
 				int rightmostGroundPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_FLAT);
 				int rightmostGroundPoolIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_FLAT);
@@ -80,7 +80,7 @@ namespace Game
 				ActivateFromPool(nextObstacleID);
 				app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
 					rightmostGroundPosition.x,
-					rightmostGroundPosition.y + app.model.groundModel.boundSize.y,
+					rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
 					rightmostGroundPosition.z
 				);
 			}

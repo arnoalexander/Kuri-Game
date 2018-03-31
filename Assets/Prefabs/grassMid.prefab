@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4568611238233882}
   - component: {fileID: 212482109057878922}
-  - component: {fileID: 60801879215340596}
   - component: {fileID: 50919614360627882}
+  - component: {fileID: 61891626253426416}
   m_Layer: 8
   m_Name: grassMid
   m_TagString: Ground.Inactive
@@ -36,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1076304340157024}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 22.225895, y: -2.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -19.819454, y: -2.9021854, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -62,8 +62,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &60801879215340596
-PolygonCollider2D:
+--- !u!61 &61891626253426416
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -78,18 +78,15 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 1.28}
+    oldSize: {x: 6.34, y: 6.34}
     newSize: {x: 1.28, y: 1.28}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.64, y: 0.64}
-      - {x: -0.64, y: -0.64}
-      - {x: 0.64, y: -0.64}
-      - {x: 0.64, y: 0.64}
+  serializedVersion: 2
+  m_Size: {x: 6.34, y: 6.34}
+  m_EdgeRadius: 0
 --- !u!212 &212482109057878922
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -124,7 +121,7 @@ SpriteRenderer:
   m_SortingLayerID: 1098052491
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 34f0cec5ef4f7d1488052528c9034e37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8103e1854b8c6b744a3bfbe10fc54947, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

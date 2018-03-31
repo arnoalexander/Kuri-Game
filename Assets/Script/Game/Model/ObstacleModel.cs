@@ -48,6 +48,7 @@ namespace Game
 		public int[] indexFirstActive { get; set; } // indeks untuk elemen yang sedang aktif dan diaktifkan paling dahulu
 		public int[] indexNextActive { get; set; } // indeks untuk elemen yang tidak aktif dan siap diaktifkan selanjutnya
 		public int[] prefabIdToPrefabIndex { get; set; } // memetakan id prefab ke indeks prefab
+		public Vector3[] boundSizes { get; set; } // dimensi ukuran dari setiap prefab
 
 		// waktu random keluarnya obstacle
 		public float nextObstacleTime { get; set;} // waktu antar obstacle
