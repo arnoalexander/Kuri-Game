@@ -7,7 +7,8 @@ namespace Game
 	public class ObstacleModel : Element
 	{
 		public enum ID {
-			OBSTACLE_SMALL_SLIME
+			OBSTACLE_SMALL_SLIME,
+			OBSTACLE_GROUND_SPIKE
 		}
 
 		void OnValidate() {

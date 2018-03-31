@@ -79,7 +79,7 @@ namespace Game
 				ObstacleModel.ID nextObstacleID = ObstacleModel.ID.OBSTACLE_SMALL_SLIME; // TODO: seharusnya random
 				ActivateFromPool(nextObstacleID);
 				app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
-					rightmostGroundPosition.x,
+					app.model.groundModel.xRight,
 					rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
 					rightmostGroundPosition.z
 				);
