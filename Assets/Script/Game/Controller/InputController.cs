@@ -57,7 +57,7 @@ namespace Game {
 			}
 			if ((Input.GetKeyDown (KeyCode.M))&&(issmoke==false)&&(app.model.playerModel.isJump==false)) {
 				smoke.SetActive (true);
-				StartCoroutine(SlowDownEnemy());
+				StartCoroutine (SlowDownEnemy ());
 			}
 		}
 
