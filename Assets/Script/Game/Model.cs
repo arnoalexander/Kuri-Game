@@ -13,6 +13,7 @@ namespace Game {
 		public WeaponModel weaponModel;
 		public ObstacleModel obstacleModel;
 		public ScoreModel scoreModel;
+		public CooldownModel cooldownModel;
 
 	}
 }

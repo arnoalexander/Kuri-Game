@@ -8,6 +8,8 @@ namespace Game {
 	public class InputController : Element {
 		public GameObject smoke;
 		public bool issmoke;
+		public float coolDown = 5f;
+		public float timeStamp;
 
 		void Start() {
 			app.model.inputModel.isDragging = false;
@@ -16,6 +18,8 @@ namespace Game {
 			app.model.inputModel.swipeDown = false;
 			app.model.inputModel.swipeLeft = false;
 			app.model.inputModel.swipeRight = false;
+			timeStamp = Time.time;
+
 		}
 
 		void Update() {
@@ -62,8 +66,11 @@ namespace Game {
 				SceneManager.LoadScene("Game");
 			}
 			if ((Input.GetKeyDown (KeyCode.M))&&(issmoke==false)&&(app.model.playerModel.isJump==false)) {
-				smoke.SetActive (true);
-				StartCoroutine (SlowDownEnemy ());
+				if (timeStamp <= Time.time) {
+					smoke.SetActive (true);
+					timeStamp = Time.time + coolDown;
+					StartCoroutine (SlowDownEnemy ());
+				}
 			}
 		}
 

@@ -13,6 +13,7 @@ namespace Game {
 		public WeaponController weaponController;
 		public ObstacleController obstacleController;
 		public ScoreController scoreController;
+		public CooldownController cooldownController;
 
 	}
 }
