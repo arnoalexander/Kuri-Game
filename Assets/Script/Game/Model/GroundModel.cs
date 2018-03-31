@@ -33,6 +33,8 @@ namespace Game {
 
 		// VARIABEL BEBAS
 		public float baseGroundSpeed; // kecepatan awal gerakan tanah, default = 2.7
+		public float maxSpeed;
+		public float increaseSpeed;
 		public float poolDisplayWidthRatio; // rasio antara jarak x_right-x_left dengan lebar layar
 		public float groundDisplayHeightRatio; // rasio antara jarak pijakan ke bawah layar dengan tinggi layar
 		public GameObject[] prefabs; // array dari prefab yang digunakan untuk ground
@@ -57,6 +59,7 @@ namespace Game {
 		public float xRight { get; set;} // jika absis dari ground paling kanan yang aktif lebih kiri dari ini, maka ground dari pool akan diaktifkan dan diletakkan di paling kanan
 		public float yLast { get; set;} // ketinggian dari ground paling kanan
 		public Vector3 boundSize { get; set;} // jarak antara sebuah kotak ground dengan kotak ground yang lain.
+	
 
 	}
 }

@@ -15,6 +15,7 @@ namespace Game {
 					GameObject groundPrefab = (GameObject)Instantiate (app.model.groundModel.prefabs [prefabIndex]);
 					app.model.groundModel.pool [prefabIndex].Add (groundPrefab);
 				}
+				InvokeRepeating ("IncreaseSpeed", 1f, 15f);
 			}
 
 			// inisialisasi index pool tanah
@@ -156,6 +157,12 @@ namespace Game {
 				if (app.model.groundModel.indexFirstActive [prefabIndex] == app.model.groundModel.indexNextActive [prefabIndex]) {
 					app.model.groundModel.indexFirstActive [prefabIndex] = GroundModel.INDEX_INACTIVE;
 				}
+			}
+		}
+
+		void IncreaseSpeed(){
+			if (app.model.groundModel.baseGroundSpeed < app.model.groundModel.maxSpeed) {
+				app.model.groundModel.baseGroundSpeed += app.model.groundModel.increaseSpeed;
 			}
 		}
 

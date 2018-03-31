@@ -12,6 +12,8 @@ namespace Game {
 		public float obstacleTranslation;
 		public float enemyAccelSpeed;
 		public float enemySlowSpeed;
+		public float maxSpeed;
+		public float increaseSpeed;
 
 
 	}

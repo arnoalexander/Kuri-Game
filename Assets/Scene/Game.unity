@@ -135,7 +135,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 11636955}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 315.7895}
   m_LocalScale: {x: 8.964534, y: 8.964534, z: 8.964534}
   m_Children: []
@@ -758,7 +758,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd8aaea241d03e247a7b17307287ead8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseGroundSpeed: 6
+  baseGroundSpeed: 5
+  maxSpeed: 30
+  increaseSpeed: 1
   poolDisplayWidthRatio: 2
   groundDisplayHeightRatio: 0.075
   prefabs:
@@ -1054,8 +1056,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a733556108fde284995b7ca50ef8a7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumDeltaTime: 2.1
-  maximumDeltaTime: 4.1
+  minimumDeltaTime: 1
+  maximumDeltaTime: 4
   prefabs:
   - {fileID: 1617128813695920, guid: beaf2529baf7bdb4fa0b64661062743e, type: 2}
   - {fileID: 1415160498992528, guid: d6596e6f50fcf8642932560adb3d3a11, type: 2}
@@ -1290,7 +1292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -94.5, y: 3.199997}
+  m_AnchoredPosition: {x: -94.5, y: 3.2000122}
   m_SizeDelta: {x: 305.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487791817
@@ -3016,12 +3018,12 @@ Prefab:
     - target: {fileID: 224369702224721020, guid: 88af35ac5c0b68e4c82f5788ad3ae717,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 29.2
+      value: 29.199951
       objectReference: {fileID: 0}
     - target: {fileID: 224369702224721020, guid: 88af35ac5c0b68e4c82f5788ad3ae717,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -28.3
+      value: -28.299988
       objectReference: {fileID: 0}
     - target: {fileID: 224369702224721020, guid: 88af35ac5c0b68e4c82f5788ad3ae717,
         type: 2}
@@ -3393,6 +3395,8 @@ MonoBehaviour:
   obstacleTranslation: 0.4
   enemyAccelSpeed: 0.3
   enemySlowSpeed: 1
+  maxSpeed: 1
+  increaseSpeed: 0.025
 --- !u!4 &1668921809
 Transform:
   m_ObjectHideFlags: 0

@@ -18,6 +18,8 @@ namespace Game
 				app.model.enemyModel.enemyGameObject.transform.position.y,
 				app.model.enemyModel.enemyGameObject.transform.position.z
 			);
+
+			InvokeRepeating ("IncreaseSpeed", 1f, 15f);
 		}
 
 		public void Jump() {
@@ -29,6 +31,12 @@ namespace Game
 			app.model.enemyModel.enemyGameObject.GetComponent<Rigidbody2D>().transform.Translate (
 				translation_x, 0.0f, 0.0f
 			);
+		}
+
+		void IncreaseSpeed(){
+			if (app.model.enemyModel.baseEnemySpeed < app.model.enemyModel.maxSpeed) {
+				app.model.enemyModel.baseEnemySpeed += app.model.enemyModel.increaseSpeed;
+			}
 		}
 
 	}
