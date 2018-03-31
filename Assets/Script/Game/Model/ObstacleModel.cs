@@ -33,6 +33,8 @@ namespace Game
 		}
 
 		// VARIABEL BEBAS
+		public float minimumDeltaTime; // selisih waktu minimum antar hambatan
+		public float maximumDeltaTime; // selisih waktu maksimum antar hambatan
 		public GameObject[] prefabs; // array dari prefab yang digunakan untuk rintangan
 		public ID[] prefabIds; // berisi id dari prefab yang menjadi elemen array prefabs
 		public int[] poolSizes; // berisi pool size dari prefab yang menjadi elemen array prefabs
@@ -53,6 +55,7 @@ namespace Game
 
 		// waktu random keluarnya obstacle
 		public float nextObstacleTime { get; set;} // waktu antar obstacle
+		public float currentDeltaTime { get; set;} // waktu saat ini relatif terhadap kemunculan obstacle sebelumnya
 	}
 }
 

@@ -34,6 +34,7 @@ namespace Game
 
 			// inisialisasi waktu antar obstacle
 			app.model.obstacleModel.nextObstacleTime = 0.0f;
+			app.model.obstacleModel.currentDeltaTime = 0.0f;
 		}
 
 		void Update() {
@@ -62,21 +63,32 @@ namespace Game
 					GameObject leftmostObstacle = app.model.obstacleModel.pool [prefabIndex] [GetIndexFirstActive (prefabId)];
 					while (leftmostObstacle.transform.position.x <= app.model.groundModel.xLeft) {
 						DeactivateFromPool (prefabId);
+						if (GetIndexFirstActive (prefabId) == ObstacleModel.INDEX_INACTIVE) {
+							break;
+						}
 						leftmostObstacle = app.model.obstacleModel.pool [prefabIndex] [GetIndexFirstActive (prefabId)];
 					}
 				}
 			}
+
+			// menghitung waktu
+			if (!app.model.screenModel.paused && !app.model.screenModel.gameOver) {
+				app.model.obstacleModel.currentDeltaTime += Time.deltaTime;
+			}
 				
 			// cek waktu kapan menggenerate obstacle baru
-			if (Time.time >= app.model.obstacleModel.nextObstacleTime) {
+			if (app.model.obstacleModel.currentDeltaTime >= app.model.obstacleModel.nextObstacleTime) {
 				int rightmostGroundPrefabIndex = app.controller.groundController.GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE);
 				int rightmostGroundPoolIndex = app.controller.groundController.GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE);
 				GameObject rightmostGround = app.model.groundModel.pool [rightmostGroundPrefabIndex] [rightmostGroundPoolIndex];
 				Vector3 rightmostGroundPosition = rightmostGround.transform.position;
 
-				app.model.obstacleModel.nextObstacleTime += 3.0f; // TODO: harusnya random
+				float deltaTime = Random.Range (app.model.obstacleModel.minimumDeltaTime, app.model.obstacleModel.maximumDeltaTime);
+				app.model.obstacleModel.nextObstacleTime = deltaTime;
+				app.model.obstacleModel.currentDeltaTime = 0.0f;
 
-				ObstacleModel.ID nextObstacleID = ObstacleModel.ID.OBSTACLE_GROUND_SPIKE; // TODO: seharusnya random
+				int intObstacleID = Random.Range(0, System.Enum.GetValues (typeof(ObstacleModel.ID)).Length);
+				ObstacleModel.ID nextObstacleID = (ObstacleModel.ID) intObstacleID;
 				ActivateFromPool(nextObstacleID);
 
 				// pemosisian
