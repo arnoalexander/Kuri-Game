@@ -80,17 +80,18 @@ namespace Game
 				ActivateFromPool(nextObstacleID);
 
 				// pemosisian
+				GameObject rightmostObstacle = app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)];
 				if (nextObstacleID == ObstacleModel.ID.OBSTACLE_GROUND_SPIKE) {
-					app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
+					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
 						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
-						rightmostGroundPosition.z
+						rightmostObstacle.transform.position.z
 					);
 				} else {
-					app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)].transform.position = new Vector3 (
+					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
 						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
-						rightmostGroundPosition.z
+						rightmostObstacle.transform.position.z
 					);
 				}
 
