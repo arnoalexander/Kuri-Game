@@ -125,9 +125,18 @@ namespace Game {
 			}
 
 			// processing
-			if (app.model.inputModel.swipeUp) { // swipe up
+			if ((app.model.inputModel.swipeUp)&&(app.model.playerModel.isJump==false)) { // swipe up
 				if (!app.model.inputModel.swipeUpPrev) {
 					app.controller.playerController.Jump ();
+				}
+			} 
+			if ((app.model.inputModel.swipeLeft)&&(app.model.playerModel.isJump==false)&&(issmoke==false)) { // swipe up
+				if (!app.model.inputModel.swipeLeftPrev) {
+					if (timeStamp <= Time.time) {
+						smoke.SetActive (true);
+						timeStamp = Time.time + coolDown;
+						StartCoroutine (SlowDownEnemy ());
+					}
 				}
 			} 
 		}
