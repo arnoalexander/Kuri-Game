@@ -5,6 +5,12 @@ using UnityEngine;
 namespace Game {
 	public class PlayerCollider : Element
 	{
+		Animator anim;
+
+		void Start() {
+			anim = app.model.playerModel.playerGameObject.GetComponent<Animator> ();
+		}
+
 		IEnumerator AccelerateEnemy()
 		{
 			print(Time.time);
@@ -24,6 +30,9 @@ namespace Game {
 
 		void OnCollisionEnter2D(Collision2D other) {
 			if (other.gameObject.tag == GroundModel.TAG_ACTIVE) {
+				if(app.model.playerModel.isJump == true){
+					anim.SetTrigger ("Land");
+				}
 				app.model.playerModel.isJump = false;
 				Debug.Log ("[PLAYER] On Ground");
 			}

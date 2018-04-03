@@ -1024,11 +1024,61 @@ GameObject:
   m_PrefabParentObject: {fileID: 1771887251290978, guid: 3aa12275487e20e408771274907b772e,
     type: 2}
   m_PrefabInternal: {fileID: 1103502559}
+--- !u!61 &451784777
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 451784775}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.29842257, y: 0.24868393}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.27, y: 9.78}
+    newSize: {x: 1.28, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.489982, y: 9.282632}
+  m_EdgeRadius: 0
 --- !u!4 &451784778 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e,
     type: 2}
   m_PrefabInternal: {fileID: 1103502559}
+--- !u!61 &451784779
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 451784775}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.24868608, y: 0.1989479}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8.27, y: 9.78}
+    newSize: {x: 1.28, y: 2.56}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.589455, y: 9.382104}
+  m_EdgeRadius: 0
 --- !u!1 &464971130
 GameObject:
   m_ObjectHideFlags: 0
@@ -2545,7 +2595,23 @@ Prefab:
       propertyPath: m_Size.y
       value: 2.1077394
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 212974683062503428, guid: 3aa12275487e20e408771274907b772e,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c7ad1633f494f744da4af5a9e97fe2e2,
+        type: 3}
+    - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4088976998024706, guid: 3aa12275487e20e408771274907b772e, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 61429875633625262, guid: 3aa12275487e20e408771274907b772e, type: 2}
+    - {fileID: 60742920285989490, guid: 3aa12275487e20e408771274907b772e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3aa12275487e20e408771274907b772e, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1168946736
@@ -3857,6 +3923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGameObject: {fileID: 451784775}
-  playerJumpSpeed: 1100
+  playerJumpSpeed: 850
   isJump: 0
   playerWidthPosition: 0.25
