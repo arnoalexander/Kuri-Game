@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MainMenu {
-	// Kelas utama dalam scene
-	public class Application : MonoBehaviour {
-		public Model model;
+	public class Model : MonoBehaviour {
+
+		public ScreenModel screenModel;
+
 	}
 }
-

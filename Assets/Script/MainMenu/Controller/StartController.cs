@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 namespace MainMenu{
-	public class StartController : MonoBehaviour {
+	public class StartController : Element {
 		// Use this for initialization
 		void Start () 
 		{

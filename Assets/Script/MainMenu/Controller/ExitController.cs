@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class ExitController : MonoBehaviour {
+	public class ExitController : MonoBehaviour {
 		// Use this for initialization
 	void Start () 
 	{

@@ -10,6 +10,7 @@ namespace Game {
 		public GameObject pauseButton;
 		public GameObject pausePanel;
 		public Text gameOverText;
+		public GameObject newHighScoreText;
 		public bool gameOver;
 		public bool paused;
 	}
