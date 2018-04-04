@@ -94,15 +94,24 @@ namespace Game
 				// pemosisian
 				GameObject rightmostObstacle = app.model.obstacleModel.pool[GetPrefabIndex(nextObstacleID)][GetIndexLastActive(nextObstacleID)];
 				if (nextObstacleID == ObstacleModel.ID.OBSTACLE_GROUND_SPIKE) {
+					Debug.Log ("duri");
 					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
-						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
+						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
+						rightmostObstacle.transform.position.z
+					);
+				} else if (nextObstacleID == ObstacleModel.ID.OBSTACLE_SMALL_SLIME) {
+					Debug.Log ("slime");
+					rightmostObstacle.transform.position = new Vector3 (
+						app.model.groundModel.xRight,
+						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
 						rightmostObstacle.transform.position.z
 					);
 				} else {
+					Debug.Log ("lebah");
 					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
-						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes[GetPrefabIndex(nextObstacleID)].y) * 0.5f,
+						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y / 2 + app.model.playerModel.boundSize.y),
 						rightmostObstacle.transform.position.z
 					);
 				}

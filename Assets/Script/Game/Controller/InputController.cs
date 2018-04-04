@@ -10,6 +10,7 @@ namespace Game {
 		public bool issmoke;
 		public float coolDown = 5f;
 		public float timeStamp;
+		Animator anim;
 
 		void Start() {
 			app.model.inputModel.isDragging = false;
@@ -19,6 +20,7 @@ namespace Game {
 			app.model.inputModel.swipeLeft = false;
 			app.model.inputModel.swipeRight = false;
 			timeStamp = Time.time;
+			anim = app.model.playerModel.playerGameObject.GetComponent<Animator> ();
 
 		}
 
@@ -72,7 +74,22 @@ namespace Game {
 					StartCoroutine (SlowDownEnemy ());
 				}
 			}
+			if ((Input.GetKeyDown (KeyCode.S))&&(app.model.playerModel.isJump==false)&&(app.model.playerModel.isSlide==false)) {
+				StartCoroutine (Slide());
+			}
 		}
+
+		IEnumerator Slide()
+		{
+			print(Time.time);
+			app.model.playerModel.isSlide = true;
+			anim.SetTrigger ("Slide");
+			yield return new WaitForSeconds (0.6f);
+			anim.SetTrigger ("SlideFinish");
+			app.model.playerModel.isSlide = false;
+			smoke.SetActive (false);
+		}
+
 
 		void DetectSwipeInput() {
 			// saving last state

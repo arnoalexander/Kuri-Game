@@ -19,6 +19,8 @@ namespace Game {
 				app.model.playerModel.playerGameObject.transform.position.y,
 				app.model.playerModel.playerGameObject.transform.position.z
 			);
+
+			app.model.playerModel.boundSize = app.model.playerModel.playerGameObject.GetComponent<SpriteRenderer>().bounds.size;
 		}
 
 		public void Jump() {
