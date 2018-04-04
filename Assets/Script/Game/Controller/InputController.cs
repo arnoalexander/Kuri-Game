@@ -147,7 +147,7 @@ namespace Game {
 					app.controller.playerController.Jump ();
 				}
 			} 
-			if ((app.model.inputModel.swipeLeft)&&(app.model.playerModel.isJump==false)&&(issmoke==false)) { // swipe up
+			if ((app.model.inputModel.swipeLeft)&&(app.model.playerModel.isJump==false)&&(issmoke==false)) { // swipe left
 				if (!app.model.inputModel.swipeLeftPrev) {
 					if (timeStamp <= Time.time) {
 						smoke.SetActive (true);
@@ -156,6 +156,11 @@ namespace Game {
 					}
 				}
 			} 
+			if ((app.model.inputModel.swipeDown)&&(app.model.playerModel.isJump==false)&&(app.model.playerModel.isSlide==false)) {
+				if (!app.model.inputModel.swipeDownPrev) {
+					StartCoroutine (Slide ());
+				}
+			}
 		}
 
 		void ResetSwipeInput() {
