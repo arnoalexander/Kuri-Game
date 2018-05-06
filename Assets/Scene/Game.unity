@@ -444,6 +444,16 @@ Prefab:
       propertyPath: m_PreserveAspect
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114953869899885734, guid: c90f737c9e4be2c4d99513144df2f63c,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: ef8b31f606cbd884088af4acc28ba560,
+        type: 3}
+    - target: {fileID: 1982536389172836, guid: c90f737c9e4be2c4d99513144df2f63c, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90f737c9e4be2c4d99513144df2f63c, type: 2}
   m_IsPrefabParent: 0
@@ -3218,6 +3228,12 @@ Prefab:
       propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114161133462590020, guid: aa0d9d18d23c27a48abcffc422e8c094,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: ef8b31f606cbd884088af4acc28ba560,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa0d9d18d23c27a48abcffc422e8c094, type: 2}
   m_IsPrefabParent: 0
