@@ -41,7 +41,10 @@ namespace Game {
 		IEnumerator SlowDownEnemy()
 		{
 			print(Time.time);
+			anim.SetTrigger ("Smoke");
 			issmoke = true;
+			yield return new WaitForSeconds (0.25f);
+			anim.SetTrigger ("SmokeFinish");
 			float dif = app.model.playerModel.playerGameObject.transform.position.x - app.model.enemyModel.enemyGameObject.transform.position.x;
 			if (dif <= 5) {
 				float tempspeed = app.model.enemyModel.baseEnemySpeed;
@@ -52,6 +55,8 @@ namespace Game {
 			} else {
 				yield return new WaitForSeconds (1);
 			}
+
+			//anim.SetTrigger ("SmokeFinish");
 				
 			issmoke = false;
 			smoke.SetActive (false);
@@ -69,6 +74,7 @@ namespace Game {
 			}
 			if ((Input.GetKeyDown (KeyCode.M))&&(issmoke==false)&&(app.model.playerModel.isJump==false)) {
 				if (timeStamp <= Time.time) {
+					
 					smoke.SetActive (true);
 					timeStamp = Time.time + coolDown;
 					StartCoroutine (SlowDownEnemy ());
