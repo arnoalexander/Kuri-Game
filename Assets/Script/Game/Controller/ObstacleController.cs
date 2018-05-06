@@ -101,21 +101,21 @@ namespace Game
 				if (nextObstacleID == ObstacleModel.ID.OBSTACLE_GROUND_SPIKE) {
 					Debug.Log ("duri");
 					rightmostObstacle.transform.position = new Vector3 (
-						app.model.groundModel.xRight,
+						app.model.groundModel.xRight + app.model.groundModel.boundSize.x,
 						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
 						rightmostObstacle.transform.position.z
 					);
 				} else if (nextObstacleID == ObstacleModel.ID.OBSTACLE_SMALL_SLIME) {
 					Debug.Log ("slime");
 					rightmostObstacle.transform.position = new Vector3 (
-						app.model.groundModel.xRight,
+						app.model.groundModel.xRight + app.model.groundModel.boundSize.x,
 						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
 						rightmostObstacle.transform.position.z
 					);
 				} else {
 					Debug.Log ("lebah");
 					rightmostObstacle.transform.position = new Vector3 (
-						app.model.groundModel.xRight,
+						app.model.groundModel.xRight + app.model.groundModel.boundSize.x,
 						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y*5 / 7 + app.model.playerModel.boundSize.y),
 						rightmostObstacle.transform.position.z
 					);

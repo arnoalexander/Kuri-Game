@@ -251,12 +251,12 @@ Prefab:
     - target: {fileID: 224391638896050418, guid: c90f737c9e4be2c4d99513144df2f63c,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 120
+      value: 333.1
       objectReference: {fileID: 0}
     - target: {fileID: 224391638896050418, guid: c90f737c9e4be2c4d99513144df2f63c,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 111.1
       objectReference: {fileID: 0}
     - target: {fileID: 224391638896050418, guid: c90f737c9e4be2c4d99513144df2f63c,
         type: 2}
@@ -302,7 +302,7 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8de71afafc1ade84dbd9e9691e7badab,
+      objectReference: {fileID: 21300000, guid: 1251ccc08889581439bb9b55668746c8,
         type: 3}
     - target: {fileID: 114797154104075080, guid: c90f737c9e4be2c4d99513144df2f63c,
         type: 2}
@@ -438,6 +438,11 @@ Prefab:
     - target: {fileID: 1135649612392624, guid: c90f737c9e4be2c4d99513144df2f63c, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114797154104075080, guid: c90f737c9e4be2c4d99513144df2f63c,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90f737c9e4be2c4d99513144df2f63c, type: 2}
@@ -3026,17 +3031,17 @@ Prefab:
     - target: {fileID: 224126334000265338, guid: aa0d9d18d23c27a48abcffc422e8c094,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.0000038147
       objectReference: {fileID: 0}
     - target: {fileID: 224126334000265338, guid: aa0d9d18d23c27a48abcffc422e8c094,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 120
+      value: 333.1
       objectReference: {fileID: 0}
     - target: {fileID: 224126334000265338, guid: aa0d9d18d23c27a48abcffc422e8c094,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 40
+      value: 111.1
       objectReference: {fileID: 0}
     - target: {fileID: 224126334000265338, guid: aa0d9d18d23c27a48abcffc422e8c094,
         type: 2}
@@ -3082,7 +3087,7 @@ Prefab:
         type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8de71afafc1ade84dbd9e9691e7badab,
+      objectReference: {fileID: 21300000, guid: 1251ccc08889581439bb9b55668746c8,
         type: 3}
     - target: {fileID: 114575301971372614, guid: aa0d9d18d23c27a48abcffc422e8c094,
         type: 2}
@@ -3202,6 +3207,16 @@ Prefab:
     - target: {fileID: 1718933139512686, guid: aa0d9d18d23c27a48abcffc422e8c094, type: 2}
       propertyPath: m_Name
       value: Paused Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 114575301971372614, guid: aa0d9d18d23c27a48abcffc422e8c094,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114575301971372614, guid: aa0d9d18d23c27a48abcffc422e8c094,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa0d9d18d23c27a48abcffc422e8c094, type: 2}
