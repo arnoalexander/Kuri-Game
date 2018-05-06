@@ -144,7 +144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -96.9, y: 41.4}
+  m_AnchoredPosition: {x: -65, y: 433}
   m_SizeDelta: {x: 5.119995, y: 5.119995}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &11636957
@@ -769,7 +769,7 @@ MonoBehaviour:
   groundDisplayHeightRatio: 0.075
   prefabs:
   - {fileID: 1922097480324158, guid: a3531acb7eb59e84c99f9d792b7095f4, type: 2}
-  prefabIds: 01000000
+  prefabIds: 00000000
   poolSizes: 19000000
 --- !u!1 &170927790
 GameObject:
@@ -1125,7 +1125,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 451784775}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0.52, z: 1}
+  m_LocalPosition: {x: -5.58, y: -1.71, z: 1}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 170927791}
@@ -1285,10 +1285,10 @@ MonoBehaviour:
   minimumDeltaTime: 1
   maximumDeltaTime: 4
   prefabs:
-  - {fileID: 1617128813695920, guid: beaf2529baf7bdb4fa0b64661062743e, type: 2}
+  - {fileID: 1415160498992528, guid: da22f48d8076aab4db5e30c002363cbc, type: 2}
   - {fileID: 1415160498992528, guid: d6596e6f50fcf8642932560adb3d3a11, type: 2}
   - {fileID: 1965075801741274, guid: 4b4286f2b3573544c890ea356f27726b, type: 2}
-  prefabIds: 000000000100000002000000
+  prefabIds: 020000000000000001000000
   poolSizes: 140000001400000014000000
 --- !u!4 &464971132
 Transform:
@@ -1519,7 +1519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -94.5, y: 3.2000122}
+  m_AnchoredPosition: {x: -62.599983, y: 394.80002}
   m_SizeDelta: {x: 305.5, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487791817
@@ -2213,6 +2213,7 @@ MonoBehaviour:
   obstacleController: {fileID: 1030698821}
   scoreController: {fileID: 769728253}
   cooldownController: {fileID: 569379282}
+  backgroundController: {fileID: 994343336}
 --- !u!1 &895327587
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,8 +2453,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 994343330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.02, y: 0.38, z: 50}
-  m_LocalScale: {x: 30.019684, y: 12.93737, z: 6.6929736}
+  m_LocalPosition: {x: 57.3, y: 0.6, z: 50}
+  m_LocalScale: {x: 137.1628, y: 13.472081, z: 0.16915269}
   m_Children:
   - {fileID: 1413786002}
   m_Father: {fileID: 170927791}
@@ -2473,7 +2474,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 47e88692685f3254fbf63db6644ea43d, type: 2}
+  - {fileID: 2100000, guid: 55c6917716c3fb64e899a7a6484a8a1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2525,9 +2526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad347fc726194148abca7d6d129f494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
-  changespeed: 0.001
-  light: {fileID: 1413786001}
+  speed: 6
+  changeOffset1: 0.25
+  changeOffset2: 0.75
+  area: 0
 --- !u!1 &1030698820
 GameObject:
   m_ObjectHideFlags: 0
@@ -2680,11 +2682,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4335832167958426, guid: 885e3ab9fcd9d61479bc83fc0c065849, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8.155
+      value: -8.76
       objectReference: {fileID: 0}
     - target: {fileID: 4335832167958426, guid: 885e3ab9fcd9d61479bc83fc0c065849, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.937
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4335832167958426, guid: 885e3ab9fcd9d61479bc83fc0c065849, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2902,6 +2904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0a6e7366698a540a5ab648bdbf1128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite1: {fileID: 21300000, guid: 37ba2135789071c4a8b47b93edf628ac, type: 3}
+  sprite2: {fileID: 21300000, guid: 4efef76d5e483cd4b991a525792b4c3f, type: 3}
 --- !u!1 &1413786000
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,7 +2932,7 @@ Light:
   serializedVersion: 8
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0
+  m_Intensity: 1.4
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -3703,7 +3707,7 @@ MonoBehaviour:
   obstacleTranslation: 0.4
   enemyAccelSpeed: 0.3
   enemySlowSpeed: 1
-  maxSpeed: 1
+  maxSpeed: 0.6
   increaseSpeed: 0.025
 --- !u!4 &1668921809
 Transform:

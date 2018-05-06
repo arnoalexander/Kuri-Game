@@ -6,28 +6,36 @@ namespace Game
 {
 	public class BackgroundController : Element {
 		public float speed;
-		public float changespeed;
-		public Light light;
+		public float changeOffset1;
+		public float changeOffset2;
+		public bool area;
 		private int change;
+		private float offsetx;
 		// Use this for initialization
 		void Start () {
-			light.intensity = 1.5f;
 			change = -1;
+			area = false;
+			offsetx = 0;
+			Vector2 offset = new Vector2 (offsetx, 0);
+			GetComponent<Renderer> ().material.mainTextureOffset = offset/150;
 		}
 		
 		// Update is called once per frame
-		void Update () {
+		void Update () { 
 			if ((!app.model.screenModel.paused) && (!app.model.screenModel.gameOver)) {
-				Vector2 offset = new Vector2 (Time.time * speed, 0);
+				offsetx = offsetx + app.model.groundModel.baseGroundSpeed / 8250;
+				Vector2 offset = new Vector2 (offsetx, 0);
 				GetComponent<Renderer> ().material.mainTextureOffset = offset;
-				light.intensity = light.intensity + change * changespeed;
-					if ((light.intensity >= 1.5) && (change == 1)) {
-						change = -1;
-					} else if ((light.intensity <= 0) && (change == -1)) {
-						change = 1;
-					}
+				Debug.Log (GetComponent<Renderer> ().material.mainTextureOffset.x);
+			}
+			float temp = GetComponent<Renderer> ().material.mainTextureOffset.x - Mathf.Floor (GetComponent<Renderer> ().material.mainTextureOffset.x);
+			if ((temp > changeOffset1) && (!area)) {
+				area = !area; 	
+			}
+			if ((temp > changeOffset2) && (area)) {
+				area = !area;
 			}
 		}
-		
+
 	}
 }

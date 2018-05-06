@@ -86,8 +86,13 @@ namespace Game
 				float deltaTime = Random.Range (app.model.obstacleModel.minimumDeltaTime, app.model.obstacleModel.maximumDeltaTime);
 				app.model.obstacleModel.nextObstacleTime = deltaTime;
 				app.model.obstacleModel.currentDeltaTime = 0.0f;
+				int intObstacleID;
+				if (app.controller.backgroundController.area==false) {
+					intObstacleID = Random.Range(0, 2);
+				} else {
+					intObstacleID = Random.Range(1, 3);
+				}
 
-				int intObstacleID = Random.Range(0, System.Enum.GetValues (typeof(ObstacleModel.ID)).Length);
 				ObstacleModel.ID nextObstacleID = (ObstacleModel.ID) intObstacleID;
 				ActivateFromPool(nextObstacleID);
 
@@ -104,14 +109,14 @@ namespace Game
 					Debug.Log ("slime");
 					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
-						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
+						rightmostGroundPosition.y + (-app.model.groundModel.boundSize.y + app.model.obstacleModel.boundSizes [GetPrefabIndex (nextObstacleID)].y) * 0.5f,
 						rightmostObstacle.transform.position.z
 					);
 				} else {
 					Debug.Log ("lebah");
 					rightmostObstacle.transform.position = new Vector3 (
 						app.model.groundModel.xRight,
-						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y / 2 + app.model.playerModel.boundSize.y),
+						rightmostGroundPosition.y + (app.model.groundModel.boundSize.y*5 / 7 + app.model.playerModel.boundSize.y),
 						rightmostObstacle.transform.position.z
 					);
 				}

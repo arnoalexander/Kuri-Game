@@ -6,8 +6,8 @@ namespace Game {
 	public class GroundModel : Element {
 
 		public enum ID {
-			GROUND_BOTTOM,
-			GROUND_MIDDLE
+			GROUND_MIDDLE,
+			GROUND_LAVA		
 		}
 
 		void OnValidate() {

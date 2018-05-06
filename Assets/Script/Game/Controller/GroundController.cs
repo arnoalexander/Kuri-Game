@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Game {
 	public class GroundController : Element {
+		public Sprite sprite1;
+		public Sprite sprite2;
 
 		void Start() {
 			// inisialisasi pool tanah
@@ -81,18 +83,33 @@ namespace Game {
 					}
 				}
 			}
-
+			GameObject rightmostGround= app.model.groundModel.pool [GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
 			// menempatkan tanah baru jika tanah paling kanan melewati batas kanan
-			GameObject rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
-			while (rightmostGround.transform.position.x <= app.model.groundModel.xRight) {
-				ActivateFromPool (GroundModel.ID.GROUND_MIDDLE);
-				float xNext = rightmostGround.transform.position.x + app.model.groundModel.boundSize.x;
-				rightmostGround = app.model.groundModel.pool [GetPrefabIndex(GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
-				rightmostGround.transform.position = new Vector3 (
-					xNext,
-					app.model.groundModel.yLast,
-					rightmostGround.transform.position.z
-				);
+			/*
+			if (app.controller.backgroundController.area == false) {
+			 rightmostGround = app.model.groundModel.pool [GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
+			} else {
+				rightmostGround = app.model.groundModel.pool [GetPrefabIndex (GroundModel.ID.GROUND_LAVA)] [GetIndexLastActive (GroundModel.ID.GROUND_LAVA)];
+			}*/
+			while ((rightmostGround.transform.position.x <= app.model.groundModel.xRight)) {
+				//if (app.controller.backgroundController.area == false) {
+					Debug.Log (app.controller.backgroundController.area);
+					ActivateFromPool (GroundModel.ID.GROUND_MIDDLE);
+					float xNext = rightmostGround.transform.position.x + app.model.groundModel.boundSize.x;
+					rightmostGround = app.model.groundModel.pool [GetPrefabIndex (GroundModel.ID.GROUND_MIDDLE)] [GetIndexLastActive (GroundModel.ID.GROUND_MIDDLE)];
+					rightmostGround.transform.position = new Vector3 (
+						xNext,
+						app.model.groundModel.yLast,
+						rightmostGround.transform.position.z
+					);
+				if (app.controller.backgroundController.area) {
+					rightmostGround.GetComponent<SpriteRenderer> ().sprite = sprite2;
+
+				} else {
+					rightmostGround.GetComponent<SpriteRenderer> ().sprite = sprite1;
+				}
+				//}
+
 			}
 		}
 

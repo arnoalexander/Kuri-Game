@@ -14,6 +14,7 @@ namespace Game {
 		public ObstacleController obstacleController;
 		public ScoreController scoreController;
 		public CooldownController cooldownController;
+		public BackgroundController backgroundController;
 
 	}
 }
